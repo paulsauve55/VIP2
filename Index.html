@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIP 2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sf-blue:#0176D3; --sf-blue-dark:#014486; --sf-blue-light:#D8EDFF;
+  --sf-blue-hover:#0165B8; --sf-brand-bar:#032D60;
+  --sf-bg:#F3F3F3; --sf-white:#FFFFFF;
+  --sf-border:#DDDBDA; --sf-border-light:#E5E5E5;
+  --sf-text:#181818; --sf-text-muted:#514F4D; --sf-text-dim:#747473; --sf-label:#3E3E3C;
+  --sf-success:#2E844A; --sf-success-bg:#EEF4EE;
+  --sf-warning:#A06400; --sf-warning-bg:#FFF3E0;
+  --sf-error:#BA0517; --sf-error-bg:#FEF1EE;
+  --sf-info-bg:#EFF7FE; --sf-orange:#E07B00; --sf-orange-bg:#FFF3D8;
+  --sf-radius:4px; --sf-radius-lg:8px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.08);
+  --shadow-md:0 4px 12px rgba(0,0,0,0.10),0 2px 4px rgba(0,0,0,0.06);
+  --shadow-lg:0 8px 32px rgba(0,0,0,0.14),0 2px 8px rgba(0,0,0,0.08);
+  --shadow-modal:0 16px 48px rgba(0,0,0,0.18),0 4px 16px rgba(0,0,0,0.10);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito Sans',-apple-system,sans-serif;font-size:13px;background:var(--sf-bg);color:var(--sf-text);min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:200;height:52px;background:var(--sf-brand-bar);display:flex;align-items:center;padding:0 16px;gap:16px;box-shadow:var(--shadow-sm);}
+.topbar-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.topbar-logo-icon{width:32px;height:32px;background:var(--sf-blue);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Raleway',sans-serif;font-weight:800;font-size:15px;color:#fff;}
+.topbar-logo-text{font-family:'Raleway',sans-serif;font-weight:700;font-size:16px;color:#fff;}
+.topbar-logo-text span{color:#7EB8F5;}
+.topbar-divider{width:1px;height:24px;background:rgba(255,255,255,0.2);flex-shrink:0;}
+.topbar-nav{display:flex;align-items:center;gap:2px;flex:1;}
+.topbar-nav-item{padding:6px 14px;border-radius:var(--sf-radius);font-size:13px;font-weight:600;color:rgba(255,255,255,0.75);cursor:pointer;transition:all 0.15s;white-space:nowrap;}
+.topbar-nav-item:hover{background:rgba(255,255,255,0.1);color:#fff;}
+.topbar-nav-item.active{background:rgba(255,255,255,0.15);color:#fff;}
+.topbar-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.topbar-btn{height:30px;padding:0 14px;border-radius:var(--sf-radius);font-family:'Nunito Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:#fff;transition:all 0.15s;display:flex;align-items:center;gap:6px;}
+.topbar-btn:hover{background:rgba(255,255,255,0.2);}
+.topbar-btn.primary{background:var(--sf-blue);border-color:var(--sf-blue);}
+.topbar-btn.primary:hover{background:var(--sf-blue-hover);}
+.topbar-user{display:flex;align-items:center;gap:8px;cursor:pointer;padding:4px 8px;border-radius:var(--sf-radius);transition:background 0.15s;}
+.topbar-user:hover{background:rgba(255,255,255,0.1);}
+.topbar-user-avatar{width:28px;height:28px;border-radius:50%;background:var(--sf-blue);border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;color:#fff;}
+.topbar-user-name{font-size:12px;font-weight:600;color:rgba(255,255,255,0.9);}
+
+/* LAYOUT */
+.app-layout{display:flex;flex:1;min-height:calc(100vh - 52px);}
+
+/* SIDEBAR */
+.sidebar{width:228px;background:var(--sf-white);border-right:1px solid var(--sf-border);flex-shrink:0;padding:12px 0;}
+.sidebar-section-label{padding:16px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--sf-text-dim);}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:9px 16px;font-size:13px;font-weight:600;color:var(--sf-text-muted);cursor:pointer;border-left:3px solid transparent;transition:all 0.12s;user-select:none;}
+.sidebar-item:hover{background:var(--sf-blue-light);color:var(--sf-blue);}
+.sidebar-item.active{border-left-color:var(--sf-blue);background:var(--sf-blue-light);color:var(--sf-blue);}
+.sidebar-item .si-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0;}
+.sidebar-hr{height:1px;background:var(--sf-border-light);margin:8px 12px;}
+
+/* MAIN */
+.main{flex:1;padding:20px 24px;overflow-y:auto;min-width:0;}
+.view{display:none;}
+.view.active{display:block;}
+
+/* PAGE HEADER */
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--sf-border);}
+.page-breadcrumb{font-size:11px;color:var(--sf-text-dim);margin-bottom:4px;}
+.page-title{font-family:'Raleway',sans-serif;font-size:20px;font-weight:700;color:var(--sf-text);line-height:1.2;}
+.page-subtitle{font-size:12px;color:var(--sf-text-muted);margin-top:3px;}
+.page-header-actions{display:flex;gap:8px;align-items:center;flex-shrink:0;}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:0 16px;height:32px;border-radius:var(--sf-radius);font-family:'Nunito Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:1px solid transparent;transition:all 0.12s;white-space:nowrap;line-height:1;}
+.btn-primary{background:var(--sf-blue);color:#fff;border-color:var(--sf-blue);}
+.btn-primary:hover{background:var(--sf-blue-hover);border-color:var(--sf-blue-hover);}
+.btn-neutral{background:var(--sf-white);color:var(--sf-text);border-color:var(--sf-border);}
+.btn-neutral:hover{background:var(--sf-bg);border-color:#c0bebe;}
+.btn-destructive{background:var(--sf-white);color:var(--sf-error);border-color:var(--sf-border);}
+.btn-destructive:hover{background:var(--sf-error-bg);border-color:var(--sf-error);}
+.btn-sm{height:28px;padding:0 12px;font-size:12px;}
+.btn-icon{width:28px;height:28px;padding:0;justify-content:center;}
+
+/* STAT CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;}
+.stat-card{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--sf-radius-lg);padding:16px 20px;box-shadow:var(--shadow-sm);transition:box-shadow 0.15s;}
+.stat-card:hover{box-shadow:var(--shadow-md);}
+.stat-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.stat-label{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--sf-text-dim);}
+.stat-icon{width:28px;height:28px;border-radius:var(--sf-radius);display:flex;align-items:center;justify-content:center;font-size:14px;}
+.stat-value{font-family:'Raleway',sans-serif;font-size:28px;font-weight:800;line-height:1;}
+.stat-trend{font-size:11px;color:var(--sf-text-dim);margin-top:4px;}
+.stat-blue .stat-icon{background:var(--sf-blue-light);} .stat-blue .stat-value{color:var(--sf-blue);}
+.stat-orange .stat-icon{background:var(--sf-orange-bg);} .stat-orange .stat-value{color:var(--sf-orange);}
+.stat-default .stat-icon{background:var(--sf-bg);} .stat-default .stat-value{color:var(--sf-text-muted);}
+.stat-green .stat-icon{background:var(--sf-success-bg);} .stat-green .stat-value{color:var(--sf-success);}
+
+/* SF CARD */
+.sf-card{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--sf-radius-lg);box-shadow:var(--shadow-sm);overflow:hidden;}
+.sf-card-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--sf-border);}
+.sf-card-title{font-family:'Raleway',sans-serif;font-size:14px;font-weight:700;color:var(--sf-text);}
+
+/* TOOLBAR */
+.toolbar{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--sf-border);flex-wrap:wrap;}
+.search-wrap{position:relative;}
+.search-wrap input{padding-left:30px;min-width:220px;}
+.search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--sf-text-dim);font-size:13px;pointer-events:none;}
+
+/* FORM CONTROLS */
+input[type=text],input[type=number],input[type=email],input[type=date],select,textarea{font-family:'Nunito Sans',sans-serif;font-size:13px;color:var(--sf-text);background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--sf-radius);padding:6px 10px;width:100%;transition:border-color 0.12s,box-shadow 0.12s;height:32px;}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--sf-blue);box-shadow:0 0 0 3px rgba(1,118,211,0.15);}
+select{cursor:pointer;}
+textarea{height:auto;resize:vertical;min-height:72px;}
+input::placeholder,textarea::placeholder{color:var(--sf-text-dim);}
+label{display:block;font-size:12px;font-weight:700;color:var(--sf-label);margin-bottom:4px;}
+
+/* CHECKBOX FIELD */
+.check-field{display:flex;align-items:center;gap:8px;padding:7px 0;}
+.check-field input[type=checkbox]{width:16px;height:16px;cursor:pointer;accent-color:var(--sf-blue);flex-shrink:0;}
+.check-field label{font-size:13px;font-weight:600;color:var(--sf-text-muted);margin:0;cursor:pointer;}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;}
+thead{background:var(--sf-bg);}
+th{padding:9px 14px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--sf-text-dim);text-align:left;border-bottom:1px solid var(--sf-border);white-space:nowrap;cursor:pointer;user-select:none;}
+th:hover{color:var(--sf-text-muted);}
+th:first-child{padding-left:16px;} th:last-child{padding-right:16px;}
+td{padding:10px 14px;font-size:13px;color:var(--sf-text-muted);border-bottom:1px solid var(--sf-border-light);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle;}
+td:first-child{padding-left:16px;} td:last-child{padding-right:16px;}
+td.col-primary{color:var(--sf-blue);font-weight:700;}
+td.col-strong{color:var(--sf-text);font-weight:600;}
+tbody tr{transition:background 0.1s;cursor:pointer;}
+tbody tr:hover{background:var(--sf-blue-light);}
+tbody tr:last-child td{border-bottom:none;}
+.table-footer{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-top:1px solid var(--sf-border);background:var(--sf-bg);font-size:12px;color:var(--sf-text-dim);}
+
+/* PROJECT TABLE WRAPPER — horizontal scroll + bottom scrollbar */
+.project-table-wrap{overflow-x:auto;overflow-y:visible;}
+.project-table-wrap table{min-width:900px;}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700;white-space:nowrap;}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.badge-green{background:var(--sf-success-bg);color:var(--sf-success);} .badge-green::before{background:var(--sf-success);}
+.badge-blue{background:var(--sf-info-bg);color:var(--sf-blue);} .badge-blue::before{background:var(--sf-blue);}
+.badge-teal{background:#EFF8F8;color:#0A5F55;} .badge-teal::before{background:#0A5F55;}
+.badge-yellow{background:var(--sf-warning-bg);color:var(--sf-warning);} .badge-yellow::before{background:var(--sf-warning);}
+.badge-red{background:var(--sf-error-bg);color:var(--sf-error);} .badge-red::before{background:var(--sf-error);}
+.badge-gray{background:#F3F3F3;color:var(--sf-text-dim);border:1px solid var(--sf-border);} .badge-gray::before{background:var(--sf-text-dim);}
+.badge-orange{background:var(--sf-orange-bg);color:var(--sf-orange);} .badge-orange::before{background:var(--sf-orange);}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:flex-start;justify-content:center;padding:28px 20px;overflow-y:auto;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--sf-white);border-radius:var(--sf-radius-lg);width:100%;max-width:900px;box-shadow:var(--shadow-modal);animation:modal-in 0.2s ease;flex-shrink:0;border:1px solid var(--sf-border);}
+@keyframes modal-in{from{opacity:0;transform:translateY(-16px) scale(0.98);}to{opacity:1;transform:none;}}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:15px 20px;background:var(--sf-brand-bar);border-radius:var(--sf-radius-lg) var(--sf-radius-lg) 0 0;}
+.modal-title{font-family:'Raleway',sans-serif;font-size:15px;font-weight:700;color:#fff;}
+.modal-close{width:28px;height:28px;border-radius:var(--sf-radius);background:rgba(255,255,255,0.15);border:none;color:rgba(255,255,255,0.85);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background 0.12s;}
+.modal-close:hover{background:rgba(255,255,255,0.25);color:#fff;}
+.modal-footer{padding:12px 20px;border-top:1px solid var(--sf-border);display:flex;justify-content:flex-end;gap:8px;background:var(--sf-bg);border-radius:0 0 var(--sf-radius-lg) var(--sf-radius-lg);}
+
+/* TABS */
+.sf-tabs{display:flex;background:var(--sf-white);border-bottom:2px solid var(--sf-border);padding:0 20px;overflow-x:auto;}
+.sf-tab{padding:10px 16px;font-size:13px;font-weight:700;color:var(--sf-text-muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.12s;white-space:nowrap;flex-shrink:0;}
+.sf-tab:hover{color:var(--sf-blue);}
+.sf-tab.active{color:var(--sf-blue);border-bottom-color:var(--sf-blue);}
+.main-tab-panel{display:none;}
+.main-tab-panel.active{display:block;}
+
+/* FORM BODY */
+.form-body{padding:0 20px 16px;}
+
+/* SECTION BLOCK */
+.form-section-block{margin-top:16px;}
+.form-section-header{display:flex;align-items:center;gap:10px;padding:9px 14px;background:var(--sf-blue-light);border-left:4px solid var(--sf-blue);border-radius:0 var(--sf-radius) var(--sf-radius) 0;margin-bottom:14px;}
+.form-section-header-title{font-family:'Raleway',sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--sf-blue-dark);}
+.form-section-header-subtitle{font-size:11px;color:var(--sf-blue);margin-left:auto;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;}
+.form-grid.col3{grid-template-columns:1fr 1fr 1fr;}
+.form-grid.col4{grid-template-columns:1fr 1fr 1fr 1fr;}
+.form-group{display:flex;flex-direction:column;}
+.form-group.span2{grid-column:span 2;}
+.form-group.span3{grid-column:span 3;}
+.form-group.span4{grid-column:span 4;}
+
+/* REMARQUES / COMMENTS */
+.remarks-section{margin-top:16px;}
+.remarks-header{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;background:#FFF8E6;border-left:4px solid var(--sf-orange);border-radius:0 var(--sf-radius) var(--sf-radius) 0;margin-bottom:14px;}
+.remarks-header-title{font-family:'Raleway',sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#7A4700;}
+.comment-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.comment-item{background:var(--sf-bg);border:1px solid var(--sf-border);border-radius:var(--sf-radius-lg);padding:12px 14px;}
+.comment-meta{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.comment-avatar{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10px;color:#fff;flex-shrink:0;}
+.comment-author{font-weight:700;font-size:12px;color:var(--sf-text);}
+.comment-date{font-size:11px;color:var(--sf-text-dim);margin-left:auto;}
+.comment-text{font-size:13px;color:var(--sf-text-muted);line-height:1.5;}
+.comment-add{display:flex;gap:8px;align-items:flex-start;}
+.comment-add textarea{min-height:56px;resize:none;}
+.comment-empty{text-align:center;padding:20px;color:var(--sf-text-dim);font-size:12px;}
+
+/* TAB EMPTY STATE */
+.tab-empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 20px;text-align:center;}
+.tab-empty-icon{font-size:2.2rem;margin-bottom:12px;opacity:0.5;}
+.tab-empty-title{font-family:'Raleway',sans-serif;font-size:14px;font-weight:700;color:var(--sf-text-muted);margin-bottom:6px;}
+.tab-empty-sub{font-size:12px;color:var(--sf-text-dim);max-width:320px;line-height:1.6;}
+
+/* FILTER CHIPS */
+.filter-chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 12px;background:var(--sf-blue-light);border:1px solid rgba(1,118,211,0.25);border-radius:14px;font-size:12px;color:var(--sf-blue-dark);font-weight:700;white-space:nowrap;}
+.filter-chip-x{cursor:pointer;opacity:0.6;font-size:13px;line-height:1;padding:0 2px;transition:opacity 0.1s;}
+.filter-chip-x:hover{opacity:1;}
+.af-filter-row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--sf-radius);font-size:12px;}
+.af-filter-label{flex:1;color:var(--sf-text-muted);}
+.af-filter-label strong{color:var(--sf-text);margin-right:4px;}
+.af-filter-label em{color:var(--sf-text-dim);font-style:normal;margin:0 4px;}
+
+/* IMPORT */
+.drop-zone{border:2px dashed var(--sf-border);border-radius:var(--sf-radius-lg);padding:32px 20px;text-align:center;transition:all 0.15s;cursor:pointer;background:var(--sf-bg);}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--sf-blue);background:var(--sf-blue-light);}
+.drop-zone-icon{font-size:2rem;margin-bottom:10px;}
+.drop-zone-title{font-weight:700;font-size:14px;color:var(--sf-text);margin-bottom:4px;}
+.drop-zone-sub{font-size:12px;color:var(--sf-text-dim);}
+.drop-zone-link{color:var(--sf-blue);cursor:pointer;text-decoration:underline;}
+.import-preview{margin-top:16px;}
+.import-preview-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.import-preview-title{font-weight:700;font-size:13px;color:var(--sf-text);}
+.import-preview-count{font-size:12px;color:var(--sf-text-dim);}
+.preview-table-wrap{border:1px solid var(--sf-border);border-radius:var(--sf-radius);overflow:hidden;max-height:260px;overflow-y:auto;}
+.preview-table-wrap table{font-size:12px;}
+.preview-table-wrap th{font-size:10px;padding:6px 10px;}
+.preview-table-wrap td{padding:6px 10px;max-width:140px;}
+.import-summary{display:flex;gap:16px;margin-top:12px;padding:12px 14px;background:var(--sf-bg);border:1px solid var(--sf-border);border-radius:var(--sf-radius);flex-wrap:wrap;}
+.import-summary-item{display:flex;flex-direction:column;gap:2px;}
+.import-summary-label{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--sf-text-dim);}
+.import-summary-value{font-family:'Raleway',sans-serif;font-size:18px;font-weight:800;color:var(--sf-text);}
+.import-summary-value.green{color:var(--sf-success);}
+.import-summary-value.orange{color:var(--sf-warning);}
+.import-option{display:flex;align-items:center;gap:8px;padding:8px 0;font-size:13px;color:var(--sf-text-muted);}
+.import-option input[type=checkbox]{width:16px;height:16px;cursor:pointer;accent-color:var(--sf-blue);}
+.import-option label{font-size:13px;font-weight:600;color:var(--sf-text-muted);margin:0;cursor:pointer;}
+.import-error-box{margin-top:10px;padding:10px 14px;background:var(--sf-error-bg);border:1px solid rgba(186,5,23,0.2);border-radius:var(--sf-radius);font-size:12px;color:var(--sf-error);}
+
+/* USER CARDS */
+.user-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+.user-card{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--sf-radius-lg);box-shadow:var(--shadow-sm);overflow:hidden;cursor:pointer;transition:all 0.15s;}
+.user-card:hover{box-shadow:var(--shadow-md);border-color:var(--sf-blue);}
+.user-card-banner{height:8px;background:linear-gradient(90deg,var(--sf-blue),#32A0E6);}
+.user-card-body-wrap{padding:16px;}
+.user-card-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.user-avatar-lg{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#fff;flex-shrink:0;}
+.user-name{font-weight:800;font-size:14px;color:var(--sf-text);}
+.user-role{font-size:11px;color:var(--sf-text-dim);margin-top:1px;}
+.user-meta{font-size:12px;color:var(--sf-text-muted);line-height:1.8;}
+.user-meta-row{display:flex;gap:6px;align-items:center;}
+.user-card-footer{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-top:1px solid var(--sf-border-light);background:var(--sf-bg);}
+
+/* PROFILES */
+.profile-list{display:flex;flex-direction:column;gap:10px;}
+.profile-item{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--sf-radius-lg);box-shadow:var(--shadow-sm);cursor:pointer;transition:all 0.15s;}
+.profile-item:hover{box-shadow:var(--shadow-md);border-color:var(--sf-blue);}
+.profile-icon{width:40px;height:40px;border-radius:var(--sf-radius-lg);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.profile-name{font-weight:800;font-size:13px;color:var(--sf-text);}
+.profile-desc{font-size:12px;color:var(--sf-text-muted);margin-top:2px;}
+.profile-perms{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;}
+.perm-tag{font-size:11px;padding:2px 7px;border-radius:12px;font-weight:600;border:1px solid var(--sf-border);color:var(--sf-text-dim);background:var(--sf-bg);}
+.perm-tag.on{background:var(--sf-blue-light);color:var(--sf-blue-dark);border-color:rgba(1,118,211,0.3);}
+.perms-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px;}
+.perm-row{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--sf-bg);border:1px solid var(--sf-border);border-radius:var(--sf-radius);font-size:12px;color:var(--sf-text-muted);}
+.toggle{width:36px;height:20px;background:#C9C9C7;border-radius:10px;cursor:pointer;position:relative;transition:background 0.2s;flex-shrink:0;}
+.toggle.on{background:var(--sf-blue);}
+.toggle::after{content:'';position:absolute;width:14px;height:14px;background:white;border-radius:50%;top:3px;left:3px;transition:left 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.2);}
+.toggle.on::after{left:19px;}
+
+/* CONFIRM */
+.confirm-modal{max-width:420px;text-align:center;}
+.confirm-body{padding:28px;}
+.confirm-icon{width:52px;height:52px;border-radius:50%;background:var(--sf-error-bg);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 14px;}
+.confirm-msg{font-size:13px;color:var(--sf-text-muted);line-height:1.5;margin-top:8px;}
+.confirm-actions{display:flex;gap:8px;justify-content:center;padding:14px 20px;border-top:1px solid var(--sf-border);}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(12px);background:#1C1C1C;color:#fff;border-radius:var(--sf-radius-lg);padding:11px 20px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:all 0.25s;pointer-events:none;box-shadow:var(--shadow-lg);white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:40px 20px;color:var(--sf-text-dim);}
+.empty-state .es-icon{width:56px;height:56px;border-radius:50%;background:var(--sf-bg);border:2px solid var(--sf-border);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 12px;}
+.empty-state p{font-size:13px;}
+.es-link{color:var(--sf-blue);cursor:pointer;text-decoration:underline;}
+.inline-select{width:auto;min-width:140px;font-size:12px;height:28px;padding:4px 8px;}
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:var(--sf-bg);}
+::-webkit-scrollbar-thumb{background:#C9C9C7;border-radius:3px;}
+
+/* LOGIN SCREEN */
+#login-screen{position:fixed;inset:0;z-index:9000;background:linear-gradient(135deg,#021B40 0%,#032D60 50%,#053B80 100%);display:flex;align-items:center;justify-content:center;padding:20px;}
+#login-screen.hidden{display:none;}
+.login-card{background:var(--sf-white);border-radius:16px;width:100%;max-width:400px;box-shadow:0 24px 64px rgba(0,0,0,0.35),0 8px 24px rgba(0,0,0,0.2);overflow:hidden;animation:login-in 0.35s cubic-bezier(0.34,1.56,0.64,1);}
+@keyframes login-in{from{opacity:0;transform:translateY(24px) scale(0.96);}to{opacity:1;transform:none;}}
+.login-header{background:var(--sf-brand-bar);padding:32px 32px 28px;text-align:center;}
+.login-logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px;}
+.login-logo-icon{width:44px;height:44px;background:var(--sf-blue);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Raleway',sans-serif;font-weight:800;font-size:22px;color:#fff;box-shadow:0 4px 12px rgba(1,118,211,0.4);}
+.login-logo-text{font-family:'Raleway',sans-serif;font-weight:800;font-size:24px;color:#fff;letter-spacing:-0.5px;}
+.login-logo-text span{color:#7EB8F5;}
+.login-subtitle{font-size:13px;color:rgba(255,255,255,0.6);margin-top:4px;}
+.login-body{padding:28px 32px 32px;}
+.login-field{margin-bottom:16px;}
+.login-field label{display:block;font-size:12px;font-weight:700;color:var(--sf-label);margin-bottom:6px;letter-spacing:0.03em;}
+.login-field input{width:100%;height:38px;padding:0 12px;border:1.5px solid var(--sf-border);border-radius:var(--sf-radius);font-family:'Nunito Sans',sans-serif;font-size:13px;color:var(--sf-text);transition:border-color 0.15s,box-shadow 0.15s;background:var(--sf-bg);}
+.login-field input:focus{outline:none;border-color:var(--sf-blue);box-shadow:0 0 0 3px rgba(1,118,211,0.15);background:#fff;}
+.login-btn{width:100%;height:40px;background:var(--sf-blue);color:#fff;border:none;border-radius:var(--sf-radius);font-family:'Nunito Sans',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all 0.15s;letter-spacing:0.02em;margin-top:8px;}
+.login-btn:hover{background:var(--sf-blue-hover);box-shadow:0 4px 12px rgba(1,118,211,0.35);}
+.login-btn:active{transform:translateY(1px);}
+.login-error{display:none;background:var(--sf-error-bg);border:1px solid rgba(186,5,23,0.25);border-radius:var(--sf-radius);padding:10px 12px;font-size:12px;color:var(--sf-error);font-weight:600;margin-bottom:14px;text-align:center;}
+.login-error.show{display:block;}
+.login-footer{text-align:center;margin-top:20px;font-size:11px;color:var(--sf-text-dim);}
+.login-demo-hint{margin-top:16px;padding:10px 12px;background:var(--sf-blue-light);border-radius:var(--sf-radius);font-size:11px;color:var(--sf-blue-dark);line-height:1.6;text-align:left;}
+.login-demo-hint strong{display:block;margin-bottom:2px;}
+
+/* USER DROPDOWN */
+.user-dropdown-wrap{position:relative;}
+.user-dropdown{position:absolute;top:calc(100% + 8px);right:0;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--sf-radius-lg);box-shadow:var(--shadow-lg);min-width:220px;z-index:500;animation:modal-in 0.15s ease;overflow:hidden;}
+.user-dropdown.hidden{display:none;}
+.user-dropdown-header{padding:14px 16px;border-bottom:1px solid var(--sf-border);background:var(--sf-bg);}
+.user-dropdown-name{font-weight:800;font-size:13px;color:var(--sf-text);}
+.user-dropdown-email{font-size:11px;color:var(--sf-text-dim);margin-top:2px;}
+.user-dropdown-profile{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;background:var(--sf-blue-light);color:var(--sf-blue-dark);}
+.user-dropdown-item{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:13px;font-weight:600;color:var(--sf-text-muted);cursor:pointer;transition:background 0.1s;}
+.user-dropdown-item:hover{background:var(--sf-bg);color:var(--sf-text);}
+.user-dropdown-item.danger{color:var(--sf-error);}
+.user-dropdown-item.danger:hover{background:var(--sf-error-bg);}
+
+/* AUDIT LOG */
+.audit-timeline{display:flex;flex-direction:column;gap:0;}
+.audit-entry{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--sf-border-light);position:relative;}
+.audit-entry:last-child{border-bottom:none;}
+.audit-dot-wrap{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:32px;}
+.audit-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;border:2px solid transparent;}
+.audit-dot.create{background:var(--sf-success-bg);border-color:rgba(46,132,74,.2);}
+.audit-dot.update{background:var(--sf-blue-light);border-color:rgba(1,118,211,.2);}
+.audit-dot.delete{background:var(--sf-error-bg);border-color:rgba(186,5,23,.2);}
+.audit-dot.login{background:var(--sf-info-bg);border-color:rgba(1,118,211,.15);}
+.audit-dot.logout{background:#F3F3F3;border-color:var(--sf-border);}
+.audit-dot.import{background:var(--sf-orange-bg);border-color:rgba(224,123,0,.2);}
+.audit-dot.export{background:#EEF4EE;border-color:rgba(46,132,74,.2);}
+.audit-dot.comment{background:#FDF5FF;border-color:rgba(123,94,167,.2);}
+.audit-line{flex:1;width:2px;background:var(--sf-border-light);margin-top:4px;}
+.audit-body{flex:1;min-width:0;padding-top:5px;}
+.audit-action{font-size:13px;font-weight:700;color:var(--sf-text);margin-bottom:3px;line-height:1.4;}
+.audit-action .audit-target{color:var(--sf-blue);}
+.audit-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.audit-user{font-size:12px;font-weight:700;color:var(--sf-text-muted);}
+.audit-time{font-size:11px;color:var(--sf-text-dim);}
+.audit-detail{font-size:11px;color:var(--sf-text-dim);margin-top:4px;line-height:1.5;padding:5px 8px;background:var(--sf-bg);border-radius:var(--sf-radius);border:1px solid var(--sf-border-light);}
+.audit-detail summary{cursor:pointer;font-weight:600;color:var(--sf-text-muted);font-size:11px;list-style:none;display:flex;align-items:center;gap:4px;}
+.audit-detail summary::before{content:'▶';font-size:8px;transition:transform .15s;}
+.audit-detail[open] summary::before{transform:rotate(90deg);}
+.audit-diff{margin-top:6px;display:flex;flex-direction:column;gap:3px;}
+.audit-diff-row{display:flex;gap:6px;font-size:11px;align-items:baseline;}
+.audit-diff-field{font-weight:700;color:var(--sf-label);min-width:140px;flex-shrink:0;}
+.audit-diff-old{color:var(--sf-error);text-decoration:line-through;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.audit-diff-arrow{color:var(--sf-text-dim);flex-shrink:0;}
+.audit-diff-new{color:var(--sf-success);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.audit-filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:10px 16px;border-bottom:1px solid var(--sf-border);background:var(--sf-bg);}
+
+/* LOADING OVERLAY */
+#loading-overlay{position:fixed;inset:0;z-index:9999;background:rgba(3,45,96,0.7);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;backdrop-filter:blur(2px);}
+#loading-overlay.hidden{display:none;}
+.loading-spinner{width:48px;height:48px;border:4px solid rgba(255,255,255,0.2);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;}
+.loading-text{color:#fff;font-size:14px;font-weight:600;opacity:0.85;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<div id="loading-overlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text" id="loading-text">Chargement…</div>
+</div>
+<div class="topbar">
+  <div class="topbar-logo"><div class="topbar-logo-icon">V</div><div class="topbar-logo-text">VIP <span>2.0</span></div></div>
+  <div class="topbar-divider"></div>
+  <nav class="topbar-nav">
+    <div class="topbar-nav-item active" id="tnav-dashboard" onclick="showView('dashboard')">Tableau de bord</div>
+    <div class="topbar-nav-item" id="tnav-projects" onclick="showView('projects')">Projets</div>
+    <div class="topbar-nav-item" id="tnav-users" onclick="showView('users')">Utilisateurs</div>
+    <div class="topbar-nav-item" id="tnav-profiles" onclick="showView('profiles')">Profils d'accès</div>
+    <div class="topbar-nav-item" id="tnav-audit" onclick="showView('audit')">Journal d'audit</div>
+  </nav>
+  <div class="topbar-right">
+    <button class="topbar-btn" onclick="openImportModal()">⬆ Importer CSV</button>
+    <button class="topbar-btn primary" onclick="openProjectModal()">+ Nouveau projet</button>
+    <div class="user-dropdown-wrap" id="user-dropdown-wrap">
+      <div class="topbar-user" onclick="toggleUserDropdown()">
+        <div class="topbar-user-avatar" id="topbar-user-avatar">AD</div>
+        <div class="topbar-user-name" id="topbar-user-name">Admin</div>
+        <span style="color:rgba(255,255,255,0.5);font-size:10px;margin-left:2px">▾</span>
+      </div>
+      <div class="user-dropdown hidden" id="user-dropdown">
+        <div class="user-dropdown-header">
+          <div class="user-dropdown-name" id="dd-user-name">Admin VIP</div>
+          <div class="user-dropdown-email" id="dd-user-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2140454c484f615748510f4240">[email&#160;protected]</a></div>
+          <div class="user-dropdown-profile" id="dd-user-profile">Administrateur</div>
+        </div>
+        <div class="user-dropdown-item" onclick="closeUserDropdown();showView('users')">👥 Gérer les utilisateurs</div>
+        <div class="user-dropdown-item" onclick="closeUserDropdown();showView('profiles')">🔑 Profils d'accès</div>
+        <div class="user-dropdown-item" onclick="closeUserDropdown();showView('audit')">📋 Journal d'audit</div>
+        <div class="user-dropdown-item danger" onclick="doLogout()">⬅ Se déconnecter</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-section-label">Menu principal</div>
+    <div class="sidebar-item active" id="nav-dashboard" onclick="showView('dashboard')"><span class="si-icon">📊</span> Tableau de bord</div>
+    <div class="sidebar-item" id="nav-projects" onclick="showView('projects')"><span class="si-icon">📁</span> Projets</div>
+    <div class="sidebar-hr"></div>
+    <div class="sidebar-section-label">Administration</div>
+    <div class="sidebar-item" id="nav-users" onclick="showView('users')"><span class="si-icon">👥</span> Utilisateurs</div>
+    <div class="sidebar-item" id="nav-profiles" onclick="showView('profiles')"><span class="si-icon">🔑</span> Profils d'accès</div>
+    <div class="sidebar-hr"></div>
+    <div class="sidebar-section-label">Outils</div>
+    <div class="sidebar-item" id="nav-audit" onclick="showView('audit')"><span class="si-icon">📋</span> Journal d'audit</div>
+    <div class="sidebar-item" onclick="openImportModal()"><span class="si-icon">⬆</span> Importer CSV</div>
+  </aside>
+  <main class="main">
+    <!-- DASHBOARD -->
+    <div class="view active" id="view-dashboard">
+      <div class="page-header">
+        <div><div class="page-breadcrumb">Accueil</div><div class="page-title">Tableau de bord</div><div class="page-subtitle">Vue d'ensemble des projets VIP 2.0</div></div>
+        <div class="page-header-actions">
+          <button class="btn btn-neutral" onclick="openImportModal()">⬆ Importer CSV</button>
+          <button class="btn btn-neutral" onclick="showView('projects')">Voir tous les projets</button>
+          <button class="btn btn-primary" onclick="openProjectModal()">+ Nouveau projet</button>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card stat-blue"><div class="stat-card-header"><div class="stat-label">Projets totaux</div><div class="stat-icon">📁</div></div><div class="stat-value" id="stat-total">0</div><div class="stat-trend">Tous statuts confondus</div></div>
+        <div class="stat-card stat-orange"><div class="stat-card-header"><div class="stat-label">En exécution</div><div class="stat-icon">⚙️</div></div><div class="stat-value" id="stat-exec">0</div><div class="stat-trend">Projets actifs</div></div>
+        <div class="stat-card stat-default"><div class="stat-card-header"><div class="stat-label">En préparation</div><div class="stat-icon">📝</div></div><div class="stat-value" id="stat-prep">0</div><div class="stat-trend">Phase d'initiation</div></div>
+        <div class="stat-card stat-green"><div class="stat-card-header"><div class="stat-label">Complétés</div><div class="stat-icon">✅</div></div><div class="stat-value" id="stat-done">0</div><div class="stat-trend">Projets terminés</div></div>
+      </div>
+      <div class="sf-card">
+        <div class="sf-card-header"><div class="sf-card-title">Projets récents</div><button class="btn btn-primary btn-sm" onclick="openProjectModal()">+ Nouveau projet</button></div>
+        <div class="project-table-wrap"><table><thead><tr><th>No. Projet</th><th>Titre</th><th>Région</th><th>Chargé de projet</th><th>Statut</th><th>Priorité</th></tr></thead><tbody id="dash-project-list"></tbody></table></div>
+        <div class="table-footer"><span id="dash-count">0 projets</span><button class="btn btn-neutral btn-sm" onclick="showView('projects')">Voir tous →</button></div>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="view" id="view-projects">
+      <div class="page-header">
+        <div><div class="page-breadcrumb">VIP 2.0</div><div class="page-title">Projets</div><div class="page-subtitle">Gestion des projets d'investissement</div></div>
+        <div class="page-header-actions">
+          <button class="btn btn-neutral" onclick="openImportModal()">⬆ Importer CSV</button>
+          <button class="btn btn-neutral" onclick="exportCSV()">⬇ Exporter CSV</button>
+          <button class="btn btn-primary" onclick="openProjectModal()">+ Nouveau projet</button>
+        </div>
+      </div>
+      <div class="sf-card">
+        <!-- SEARCH + FILTER BAR -->
+        <div class="toolbar" style="flex-wrap:wrap;gap:8px;padding:10px 14px;">
+          <div class="search-wrap"><span class="search-icon">🔍</span><input type="text" id="project-search" placeholder="Rechercher dans tous les champs..." oninput="renderProjectTable()" style="min-width:260px"></div>
+          <button class="btn btn-neutral btn-sm" id="filter-toggle-btn" onclick="toggleFilterPanel()" style="gap:6px">
+            <span id="filter-toggle-icon">▾</span> Filtres avancés <span id="filter-active-badge" style="display:none;background:var(--sf-blue);color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;margin-left:2px">0</span>
+          </button>
+          <div style="margin-left:auto;display:flex;gap:6px">
+            <button class="btn btn-neutral btn-sm" onclick="clearAllFilters()" id="clear-filters-btn" style="display:none">✕ Effacer les filtres</button>
+            <button class="btn btn-neutral btn-sm" onclick="exportCSV()" title="Exporter la sélection filtrée en CSV">⬇ Exporter</button>
+          </div>
+        </div>
+
+        <!-- ACTIVE FILTER CHIPS -->
+        <div id="filter-chips" style="display:none;padding:0 14px 10px;display:flex;flex-wrap:wrap;gap:6px;"></div>
+
+        <!-- ADVANCED FILTER PANEL -->
+        <div id="filter-panel" style="display:none;border-top:1px solid var(--sf-border);padding:14px;background:var(--sf-bg);">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--sf-text-dim);margin-bottom:10px">Ajouter un filtre</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end">
+            <div style="display:flex;flex-direction:column;gap:4px;min-width:220px">
+              <label style="font-size:11px;font-weight:700;color:var(--sf-label)">Champ</label>
+              <select id="af-field" onchange="updateFilterOperators()" style="height:32px;font-size:12px;min-width:220px">
+                <option value="">-- Sélectionner un champ --</option>
+              </select>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px;min-width:160px">
+              <label style="font-size:11px;font-weight:700;color:var(--sf-label)">Opérateur</label>
+              <select id="af-op" style="height:32px;font-size:12px;min-width:160px">
+                <option value="contains">Contient</option>
+                <option value="equals">Égal à</option>
+                <option value="notequals">Différent de</option>
+                <option value="starts">Commence par</option>
+                <option value="empty">Est vide</option>
+                <option value="notempty">N'est pas vide</option>
+                <option value="checked">Coché</option>
+                <option value="unchecked">Non coché</option>
+              </select>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px;min-width:180px" id="af-value-wrap">
+              <label style="font-size:11px;font-weight:700;color:var(--sf-label)">Valeur</label>
+              <input type="text" id="af-value" placeholder="Valeur..." style="height:32px;font-size:12px" onkeydown="if(event.key==='Enter')addAdvancedFilter()">
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="addAdvancedFilter()" style="height:32px;align-self:flex-end">+ Ajouter</button>
+          </div>
+          <div id="active-filters-list" style="margin-top:12px;display:flex;flex-direction:column;gap:6px"></div>
+        </div>
+        <div class="project-table-wrap">
+          <table>
+            <thead><tr><th onclick="sortTable('numero')">No. Projet ↕</th><th onclick="sortTable('titre')">Titre ↕</th><th onclick="sortTable('annee')">Année ↕</th><th>Type</th><th>Région</th><th>Chargé de projet</th><th>Statut</th><th>Progrès</th><th>Priorité</th><th></th></tr></thead>
+            <tbody id="project-list"></tbody>
+          </table>
+        </div>
+        <div class="table-footer"><span id="project-count">0 projets</span></div>
+      </div>
+    </div>
+
+    <!-- AUDIT LOG -->
+    <div class="view" id="view-audit">
+      <div class="page-header">
+        <div><div class="page-breadcrumb">Administration</div><div class="page-title">Journal d'audit</div><div class="page-subtitle">Historique complet de toutes les actions effectuées dans VIP 2.0</div></div>
+        <div class="page-header-actions">
+          <button class="btn btn-neutral" onclick="exportAuditCSV()">⬇ Exporter</button>
+          <button class="btn btn-destructive" onclick="clearAuditLog()">🗑 Effacer le journal</button>
+        </div>
+      </div>
+      <div class="sf-card">
+        <div class="audit-filters">
+          <div class="search-wrap"><span class="search-icon">🔍</span><input type="text" id="audit-search" placeholder="Rechercher dans le journal..." oninput="renderAuditLog()" style="min-width:220px"></div>
+          <select class="inline-select" id="audit-filter-type" onchange="renderAuditLog()">
+            <option value="">Toutes les actions</option>
+            <option value="login">Connexion</option>
+            <option value="logout">Déconnexion</option>
+            <option value="create">Création</option>
+            <option value="update">Modification</option>
+            <option value="delete">Suppression</option>
+            <option value="import">Importation</option>
+            <option value="export">Exportation</option>
+            <option value="comment">Commentaire</option>
+          </select>
+          <select class="inline-select" id="audit-filter-user" onchange="renderAuditLog()">
+            <option value="">Tous les utilisateurs</option>
+          </select>
+          <select class="inline-select" id="audit-filter-entity" onchange="renderAuditLog()">
+            <option value="">Tous les objets</option>
+            <option value="projet">Projets</option>
+            <option value="utilisateur">Utilisateurs</option>
+            <option value="profil">Profils</option>
+            <option value="session">Sessions</option>
+            <option value="csv">CSV</option>
+          </select>
+          <span id="audit-count" style="margin-left:auto;font-size:12px;color:var(--sf-text-dim)">0 entrées</span>
+        </div>
+        <div style="padding:16px 20px" id="audit-timeline-wrap">
+          <div class="audit-timeline" id="audit-timeline"></div>
+        </div>
+        <div class="table-footer" id="audit-footer" style="justify-content:center;gap:12px">
+          <button class="btn btn-neutral btn-sm" id="audit-load-more" onclick="auditPage++;renderAuditLog()" style="display:none">Charger plus</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- USERS -->
+    <div class="view" id="view-users">
+      <div class="page-header">
+        <div><div class="page-breadcrumb">Administration</div><div class="page-title">Utilisateurs</div><div class="page-subtitle">Gestion des comptes utilisateurs</div></div>
+        <div class="page-header-actions"><button class="btn btn-primary" onclick="openUserModal()">+ Nouvel utilisateur</button></div>
+      </div>
+      <div class="user-cards" id="user-cards"></div>
+    </div>
+
+    <!-- PROFILES -->
+    <div class="view" id="view-profiles">
+      <div class="page-header">
+        <div><div class="page-breadcrumb">Administration</div><div class="page-title">Profils d'accès</div><div class="page-subtitle">Définition des rôles et permissions</div></div>
+        <div class="page-header-actions"><button class="btn btn-primary" onclick="openProfileModal()">+ Nouveau profil</button></div>
+      </div>
+      <div class="profile-list" id="profile-list"></div>
+    </div>
+  </main>
+</div>
+<!-- PROJECT MODAL -->
+<div class="modal-overlay" id="project-modal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title" id="project-modal-title">Nouveau projet</div><button class="modal-close" onclick="closeModal('project-modal')">✕</button></div>
+    <div class="sf-tabs">
+      <div class="sf-tab active" data-main-tab="general" onclick="switchMainTab('general')">Général</div>
+      <div class="sf-tab" data-main-tab="investissement" onclick="switchMainTab('investissement')">Investissement</div>
+      <div class="sf-tab" data-main-tab="planification" onclick="switchMainTab('planification')">Planification</div>
+      <div class="sf-tab" data-main-tab="ingenierie" onclick="switchMainTab('ingenierie')">Ingénierie</div>
+      <div class="sf-tab" data-main-tab="vente" onclick="switchMainTab('vente')">Vente</div>
+    </div>
+
+    <!-- TAB: GÉNÉRAL -->
+    <div class="main-tab-panel active" id="main-tab-general">
+      <div class="form-body">
+        <!-- IDENTIFICATION -->
+        <div class="form-section-block">
+          <div class="form-section-header"><div class="form-section-header-title">Identification</div><div class="form-section-header-subtitle">Onglet Général</div></div>
+          <div class="form-grid">
+            <div class="form-group"><label>Numéro de Projet</label><input type="text" id="f-numero" placeholder="ex: PRJ-2026-001"></div>
+            <div class="form-group"><label>Année du projet</label><input type="number" id="f-annee" placeholder="2026"></div>
+            <div class="form-group span2"><label>Titre du projet</label><input type="text" id="f-titre" placeholder="Titre complet du projet"></div>
+            <div class="form-group"><label>Initié par</label><input type="text" id="f-initie" placeholder="Nom ou entité"></div>
+            <div class="form-group"><label>Type de projet</label><select id="f-type"><option value="">-- Sélectionner --</option><option>Général</option><option>Projets spéciaux</option></select></div>
+            <div class="form-group"><label>Modèle de référence</label><select id="f-modele"><option value="">-- Sélectionner --</option><option>15 Correctif</option><option>17 Non applicable</option></select></div>
+            <div class="form-group"><label>Priorité 1@3</label><select id="f-priorite"><option value="">-- Sélectionner --</option><option>1- Essentiel</option><option>2- Important</option><option>3- Souhaitable</option></select></div>
+            <div class="form-group"><label>Région</label><select id="f-region"><option value="">-- Sélectionner --</option><option>Abitibi/Témiscamingue</option><option>Estrie/Bois-Francs</option><option>Laurentides</option><option>Mauricie</option><option>Montérégie</option><option>Montréal-Est</option><option>Montréal-Ouest</option><option>Québec</option><option>Saguenay/Lac St-Jean</option></select></div>
+            <div class="form-group"><label>Ville</label><input type="text" id="f-ville" placeholder="Ville"></div>
+            <div class="form-group"><label>Ing régional</label><select id="f-ing"><option value="">-- Sélectionner --</option><option>Ingénieur(e) régional(e)</option><option>Marion Kestler</option><option>Mathieu Béland</option><option>Mathieu Bélanger-Soucy</option><option>Mélanie Bisson</option><option>O. Gemme</option><option>S Pozzo</option></select></div>
+            <div class="form-group"><label>Chargé de Projet</label><select id="f-charge"><option value="">-- Sélectionner --</option><option>Agathe Priscille Ndomby Nyamba</option><option>Alexandre Lemieux</option><option>Charles Bergevin</option><option>François Cabaret</option><option>George Floarea</option><option>Giovanni Malagnino</option><option>Martin Binet</option><option>Minh Thang-Le</option><option>Nicolas Guillemette</option><option>Omar Hossein Barra</option><option>Pascal Bélanger</option><option>Pierre-Olivier Marchand</option><option>Sophie Fanna</option></select></div>
+            <div class="form-group"><label>Tech</label><input type="text" id="f-tech" placeholder="Technicien assigné"></div>
+            <div class="form-group"><label>Statut du Projet</label><select id="f-statut"><option value="">-- Sélectionner --</option><option>Annulé</option><option>Complété</option><option>En exécution</option><option>En préparation</option><option>Enveloppe</option><option>Étude Ing</option></select></div>
+            <div class="form-group"><label>Longueur de CP estimé</label><input type="text" id="f-longueur-cp" placeholder="m"></div>
+            <div class="form-group span2"><label>Description des travaux</label><textarea id="f-description" placeholder="Description détaillée..."></textarea></div>
+          </div>
+        </div>
+        <!-- RISQUE -->
+        <div class="form-section-block">
+          <div class="form-section-header"><div class="form-section-header-title">Risque</div><div class="form-section-header-subtitle">Onglet Général</div></div>
+          <div class="form-grid">
+            <div class="form-group span2"><label>Analyse de risque</label><textarea id="f-analyse-risque" placeholder="Description de l'analyse de risque..."></textarea></div>
+          </div>
+        </div>
+        <!-- ACTIVITÉS -->
+        <div class="form-section-block">
+          <div class="form-section-header"><div class="form-section-header-title">Activités</div><div class="form-section-header-subtitle">Onglet Général</div></div>
+          <div class="form-grid col4">
+            <div class="form-group" style="align-self:end"><div class="check-field"><input type="checkbox" id="f-arpentage"><label for="f-arpentage">Arpentage</label></div></div>
+            <div class="form-group"><label>Date arpentage</label><input type="date" id="f-date-arpentage"></div>
+            <div class="form-group" style="align-self:end"><div class="check-field"><input type="checkbox" id="f-plan-approbation"><label for="f-plan-approbation">Plan Approbation</label></div></div>
+            <div class="form-group"><label>Date plan Approbation</label><input type="date" id="f-date-plan-approbation"></div>
+            <div class="form-group" style="align-self:end"><div class="check-field"><input type="checkbox" id="f-plan-construction"><label for="f-plan-construction">Plan construction</label></div></div>
+            <div class="form-group"><label>Date plan construction</label><input type="date" id="f-date-plan-construction"></div>
+            <div class="form-group" style="align-self:end"><div class="check-field"><input type="checkbox" id="f-permis"><label for="f-permis">Permis</label></div></div>
+            <div class="form-group"><label>Date permis</label><input type="date" id="f-date-permis"></div>
+            <div class="form-group" style="align-self:end"><div class="check-field"><input type="checkbox" id="f-estimation-act"><label for="f-estimation-act">Estimation</label></div></div>
+            <div class="form-group"><label>Date Estimation</label><input type="date" id="f-date-estimation"></div>
+            <div class="form-group" style="align-self:end"><div class="check-field"><input type="checkbox" id="f-pret-autorisation"><label for="f-pret-autorisation">Prêt pour autorisation</label></div></div>
+            <div class="form-group"><label>Date prêt pour autorisation</label><input type="date" id="f-date-pret-autorisation"></div>
+          </div>
+        </div>
+        <!-- INFORMATIONS GÉNÉRALES (checkboxes) -->
+        <div class="form-section-block">
+          <div class="form-section-header"><div class="form-section-header-title">Informations générales</div><div class="form-section-header-subtitle">Onglet Général</div></div>
+          <div class="form-grid col3">
+            <div class="check-field"><input type="checkbox" id="f-sensibilite-med"><label for="f-sensibilite-med">Sensibilité médiatique</label></div>
+            <div class="check-field"><input type="checkbox" id="f-dans-info-rtu"><label for="f-dans-info-rtu">Dans info RTU</label></div>
+            <div class="check-field"><input type="checkbox" id="f-branchement-seul"><label for="f-branchement-seul">Branchement seulement</label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: INVESTISSEMENT -->
+    <div class="main-tab-panel" id="main-tab-investissement">
+      <div class="form-body">
+        <!-- DI ET OTP -->
+        <div class="form-section-block">
+          <div class="form-section-header"><div class="form-section-header-title">DI et OTP</div><div class="form-section-header-subtitle">Onglet Investissement</div></div>
+          <div class="form-grid col3">
+            <div class="form-group span3"><label>Nature d'invest</label><select id="f-nature"><option value="">-- Sélectionner --</option><option>05-Branchements d'immeubles</option><option>07-Régulation de pression (PDD)</option><option>09-Poste de livraison</option><option>10-Conduite principale</option></select></div>
+            <div class="form-group"><label>No. DI d'estimation</label><input type="number" id="f-di-estim-num" placeholder="Numéro"></div>
+            <div class="form-group"><label>Estimation du projet ($)</label><input type="number" id="f-di-estim-mnt" placeholder="0.00"></div>
+            <div></div>
+            <div class="form-group"><label>No. DI de réalisation</label><input type="number" id="f-di-real-num" placeholder="Numéro"></div>
+            <div class="form-group"><label>Montant DI de réalisation ($)</label><input type="number" id="f-di-real-mnt" placeholder="0.00"></div>
+            <div></div>
+            <div class="form-group"><label>No. DI Ajustement #1</label><input type="number" id="f-adj1-num" placeholder="Numéro"></div>
+            <div class="form-group"><label>Montant Ajustement #1 ($)</label><input type="number" id="f-adj1-mnt" placeholder="0.00"></div>
+            <div></div>
+            <div class="form-group"><label>No. DI Ajustement #2</label><input type="number" id="f-adj2-num" placeholder="Numéro"></div>
+            <div class="form-group"><label>Montant Ajustement #2 ($)</label><input type="number" id="f-adj2-mnt" placeholder="0.00"></div>
+            <div></div>
+            <div class="form-group"><label>Numéro ordres</label><input type="number" id="f-num-ordres" placeholder="Numéro"></div>
+          </div>
+        </div>
+        <!-- RÉVISION -->
+        <div class="form-section-block">
+          <div class="form-section-header"><div class="form-section-header-title">Révision</div><div class="form-section-header-subtitle">Onglet Investissement</div></div>
+          <div class="form-grid col3">
+            <div class="form-group"><label>Période</label><div style="font-size:11px;color:var(--sf-text-dim);padding:4px 0;font-weight:700">Montant</div></div>
+            <div style="font-size:11px;color:var(--sf-text-dim);padding:20px 0 4px;font-weight:700">Date remarque</div>
+            <div style="font-size:11px;color:var(--sf-text-dim);padding:20px 0 4px;font-weight:700">Remarque</div>
+
+            <div class="form-group"><label>0/12 2026</label><input type="number" id="f-mnt-0-12" placeholder="0.00"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="date" id="f-dt-0-12"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="text" id="f-rem-0-12" placeholder="Remarque"></div>
+
+            <div class="form-group"><label>3/9 2026</label><input type="number" id="f-mnt-3-9" placeholder="0.00"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="date" id="f-dt-3-9"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="text" id="f-rem-3-9" placeholder="Remarque"></div>
+
+            <div class="form-group"><label>6/6 2026</label><input type="number" id="f-mnt-6-6" placeholder="0.00"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="date" id="f-dt-6-6"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="text" id="f-rem-6-6" placeholder="Remarque"></div>
+
+            <div class="form-group"><label>8/4 2026</label><input type="number" id="f-mnt-8-4" placeholder="0.00"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="date" id="f-dt-8-4"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="text" id="f-rem-8-4" placeholder="Remarque"></div>
+
+            <div class="form-group"><label>9/3 2026</label><input type="number" id="f-mnt-9-3" placeholder="0.00"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="date" id="f-dt-9-3"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="text" id="f-rem-9-3" placeholder="Remarque"></div>
+
+            <div class="form-group"><label>Cause 2026</label><input type="number" id="f-mnt-cause" placeholder="0.00"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="date" id="f-dt-cause"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="text" id="f-rem-cause" placeholder="Remarque"></div>
+
+            <div class="form-group"><label>Prev coût final 2026</label><input type="number" id="f-mnt-prev" placeholder="0.00"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="date" id="f-dt-prev"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="text" id="f-rem-prev" placeholder="Remarque"></div>
+
+            <div class="form-group"><label>Réel 2026</label><input type="number" id="f-mnt-reel" placeholder="0.00"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="date" id="f-dt-reel"></div>
+            <div class="form-group"><label>&nbsp;</label><input type="text" id="f-rem-reel" placeholder="Remarque"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: PLANIFICATION -->
+    <div class="main-tab-panel" id="main-tab-planification">
+      <div class="form-body">
+        <!-- STATUT ET DATES -->
+        <div class="form-section-block">
+          <div class="form-section-header"><div class="form-section-header-title">Statut et Dates</div><div class="form-section-header-subtitle">Onglet Planification</div></div>
+          <div class="form-grid">
+            <div class="form-group"><label>Progrès</label><select id="f-progres"><option value="">-- Sélectionner --</option><option>0% - Non traité</option><option>25% - Estimation</option><option>50% - Go Planification</option><option>75% - Go Construction</option><option>100% - Prêt pour construction</option><option>Enveloppe</option></select></div>
+          </div>
+        </div>
+        <!-- TYPE DE PLANIFICATION -->
+        <div class="form-section-block">
+          <div class="form-section-header"><div class="form-section-header-title">Type de Planification</div><div class="form-section-header-subtitle">Onglet Planification</div></div>
+          <div class="form-grid col3">
+            <div class="form-group"><label>Type de modèle</label><select id="f-type-modele"><option value="">-- Sélectionner --</option><option>Amélioration des actifs</option><option>Adaptation des réseaux GSR</option><option>Respect des exigences</option><option>Risque</option><option>Odorisation</option><option>Poste de Livraison</option><option>Poste de mesurage</option><option>Poste de pré et détente</option><option>Poste d'injection GNR</option><option>Vannes</option></select></div>
+            <div class="form-group"><label>Date de début type de modèle</label><input type="date" id="f-date-debut-modele"></div>
+            <div class="form-group"><label>Date de fin type de modèle</label><input type="date" id="f-date-fin-modele"></div>
+          </div>
+        </div>
+        <!-- CARACTÉRISTIQUES -->
+        <div class="form-section-block">
+          <div class="form-section-header"><div class="form-section-header-title">Caractéristiques</div><div class="form-section-header-subtitle">Onglet Planification</div></div>
+          <div class="form-grid col3">
+            <div class="check-field"><input type="checkbox" id="f-arriere-lot"><label for="f-arriere-lot">Arrière-lot</label></div>
+            <div class="check-field"><input type="checkbox" id="f-capuchon-te"><label for="f-capuchon-te">Capuchon en té de plastique</label></div>
+            <div class="check-field"><input type="checkbox" id="f-bi-joint"><label for="f-bi-joint">BI avec joint mécanique</label></div>
+            <div class="check-field"><input type="checkbox" id="f-conversion-reseau"><label for="f-conversion-reseau">Conversion réseau (pression d'opération)</label></div>
+            <div class="check-field"><input type="checkbox" id="f-decarbonation"><label for="f-decarbonation">Décarbonation</label></div>
+            <div class="check-field"><input type="checkbox" id="f-electricite"><label for="f-electricite">Électricité et/ou instrumentation</label></div>
+            <div class="check-field"><input type="checkbox" id="f-gare-raclage"><label for="f-gare-raclage">Gare de raclage</label></div>
+            <div class="check-field"><input type="checkbox" id="f-gnr-gsr"><label for="f-gnr-gsr">GNR/GSR (gaz de source renouvelable)</label></div>
+            <div class="check-field"><input type="checkbox" id="f-hydrogene"><label for="f-hydrogene">Hydrogène</label></div>
+            <div class="check-field"><input type="checkbox" id="f-projet-corp"><label for="f-projet-corp">Projet Corporatif (demande de la Direction)</label></div>
+            <div class="check-field"><input type="checkbox" id="f-projet-regie"><label for="f-projet-regie">Projet déposé à la Régie de l'énergie du Québec</label></div>
+            <div class="check-field"><input type="checkbox" id="f-projet-imm"><label for="f-projet-imm">Projet Gestion des immeubles/SST/Sûreté</label></div>
+            <div class="check-field"><input type="checkbox" id="f-rempl-chaudiere"><label for="f-rempl-chaudiere">Remplacement chaudière (procédé)</label></div>
+            <div class="check-field"><input type="checkbox" id="f-rempl-odorisation"><label for="f-rempl-odorisation">Remplacement système odorisation</label></div>
+          </div>
+        </div>
+        <!-- REMARQUES PLANIFICATION -->
+        <div class="remarks-section" id="remarks-planification-wrap">
+          <div class="remarks-header"><div class="remarks-header-title">💬 Remarques</div></div>
+          <div class="comment-list" id="comments-planification"></div>
+          <div class="comment-add" id="comment-add-planification">
+            <textarea id="comment-text-planification" placeholder="Ajouter une remarque..."></textarea>
+            <button class="btn btn-primary btn-sm" onclick="addComment('planification')" style="flex-shrink:0;height:56px;">Publier</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: INGÉNIERIE -->
+    <div class="main-tab-panel" id="main-tab-ingenierie">
+      <div class="form-body">
+        <!-- INGÉNIERIE FIELDS -->
+        <div class="form-section-block">
+          <div class="form-section-header"><div class="form-section-header-title">Ingénierie</div><div class="form-section-header-subtitle">Onglet Ingénierie</div></div>
+          <div class="form-grid col3">
+            <div class="form-group"><label>Date DI Estimation</label><input type="date" id="f-date-di-estim"></div>
+            <div class="form-group"><label>Date DI Réalisation</label><input type="date" id="f-date-di-real"></div>
+            <div></div>
+            <div class="form-group"><label>Catégorie G A</label><input type="text" id="f-categorie-ga" placeholder="ex: Amélioration des actifs"></div>
+            <div class="form-group"><label>Type travaux G A</label><select id="f-type-travaux-ga"><option value="">-- Sélectionner --</option><option>Conduites suspendues</option><option>Autres</option><option>Conduites enfouies</option><option>MTQ</option></select></div>
+          </div>
+        </div>
+        <!-- REMARQUES INGÉNIERIE -->
+        <div class="remarks-section" id="remarks-ingenierie-wrap">
+          <div class="remarks-header"><div class="remarks-header-title">💬 Remarques</div></div>
+          <div class="comment-list" id="comments-ingenierie"></div>
+          <div class="comment-add" id="comment-add-ingenierie">
+            <textarea id="comment-text-ingenierie" placeholder="Ajouter une remarque..."></textarea>
+            <button class="btn btn-primary btn-sm" onclick="addComment('ingenierie')" style="flex-shrink:0;height:56px;">Publier</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: VENTE -->
+    <div class="main-tab-panel" id="main-tab-vente">
+      <div class="form-body">
+        <!-- VENTE FIELDS -->
+        <div class="form-section-block">
+          <div class="form-section-header"><div class="form-section-header-title">Vente</div><div class="form-section-header-subtitle">Onglet Vente</div></div>
+          <div class="form-grid col3">
+            <div class="form-group"><label>Statut de vente</label><input type="text" id="f-statut-vente" placeholder="Statut"></div>
+            <div class="form-group"><label>Taux de pénétration</label><input type="text" id="f-taux-penetration" placeholder="ex: 80%"></div>
+            <div class="form-group"><label>Ordre de prio. de l'estimé</label><input type="text" id="f-ordre-prio-estime" placeholder="Priorité"></div>
+            <div class="form-group"><label>Date de demande d'estimé</label><input type="date" id="f-date-demande-estime"></div>
+            <div class="form-group"><label>Date Gaz Requis - Ventes</label><input type="date" id="f-date-gaz-requis-vente"></div>
+            <div class="form-group"><label>Date gaz requis vente</label><input type="date" id="f-date-gaz-requis-vente2"></div>
+            <div class="form-group"><label>Début prévu des infra.</label><input type="date" id="f-debut-infra"></div>
+            <div class="form-group"><label>Première livraison connue</label><input type="date" id="f-premiere-livraison"></div>
+            <div class="form-group"><label>Numéro d'avis</label><input type="text" id="f-num-avis" placeholder="Numéro d'avis"></div>
+            <div class="form-group"><label>Nom représentant</label><input type="text" id="f-nom-representant" placeholder="Nom du représentant"></div>
+          </div>
+        </div>
+        <!-- REMARQUES VENTE (structured field) -->
+        <div class="form-section-block">
+          <div class="form-section-header"><div class="form-section-header-title">Remarques vente</div><div class="form-section-header-subtitle">Onglet Vente</div></div>
+          <div class="form-grid">
+            <div class="form-group span2"><textarea id="f-remarques-vente-field" placeholder="Remarques de vente..."></textarea></div>
+          </div>
+        </div>
+        <!-- REMARQUES (comments) -->
+        <div class="remarks-section" id="remarks-vente-wrap">
+          <div class="remarks-header"><div class="remarks-header-title">💬 Remarques</div></div>
+          <div class="comment-list" id="comments-vente"></div>
+          <div class="comment-add" id="comment-add-vente">
+            <textarea id="comment-text-vente" placeholder="Ajouter une remarque..."></textarea>
+            <button class="btn btn-primary btn-sm" onclick="addComment('vente')" style="flex-shrink:0;height:56px;">Publier</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-neutral" onclick="closeModal('project-modal')">Annuler</button>
+      <button class="btn btn-primary" onclick="saveProject()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+<!-- IMPORT MODAL -->
+<div class="modal-overlay" id="import-modal">
+  <div class="modal" style="max-width:720px">
+    <div class="modal-header"><div class="modal-title">Importer des projets depuis un fichier CSV</div><button class="modal-close" onclick="closeModal('import-modal')">✕</button></div>
+    <div style="padding:20px">
+      <div id="import-step-1">
+        <div class="drop-zone" id="drop-zone" onclick="document.getElementById('csv-file-input').click()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+          <div class="drop-zone-icon">📄</div>
+          <div class="drop-zone-title">Glissez votre fichier CSV ici</div>
+          <div class="drop-zone-sub">ou <span class="drop-zone-link">parcourir vos fichiers</span><br><br>Formats acceptés: <strong>.csv</strong> — Séparateur: <strong>virgule (,) ou point-virgule (;)</strong> détecté automatiquement</div>
+        </div>
+        <input type="file" id="csv-file-input" accept=".csv,.txt" style="display:none" onchange="handleFileSelect(event)">
+        <div style="margin-top:16px;padding:12px 14px;background:var(--sf-blue-light);border:1px solid rgba(1,118,211,0.2);border-radius:var(--sf-radius);font-size:12px;color:var(--sf-blue-dark)">
+          <strong>Format attendu du fichier CSV :</strong><br>
+          • Ligne 1 : Noms des champs (en-tête)<br>
+          • Lignes 2+ : Données des projets<br>
+          • Séparateur virgule (,) ou point-virgule (;) détecté automatiquement<br>
+          • Les colonnes non reconnues par l'application sont ignorées automatiquement
+        </div>
+      </div>
+      <div id="import-step-2" style="display:none">
+        <div id="import-error-box" class="import-error-box" style="display:none"></div>
+        <div class="import-summary" id="import-summary">
+          <div class="import-summary-item"><div class="import-summary-label">Fichier</div><div style="font-size:13px;font-weight:700;color:var(--sf-text)" id="import-filename">—</div></div>
+          <div class="import-summary-item"><div class="import-summary-label">Séparateur</div><div style="font-size:13px;font-weight:700;color:var(--sf-text)" id="import-sep">—</div></div>
+          <div class="import-summary-item"><div class="import-summary-label">Colonnes importées</div><div class="import-summary-value" id="import-cols">0</div></div>
+          <div class="import-summary-item"><div class="import-summary-label">Projets à importer</div><div class="import-summary-value green" id="import-rows">0</div></div>
+          <div class="import-summary-item"><div class="import-summary-label">Lignes ignorées</div><div class="import-summary-value orange" id="import-skipped">0</div></div>
+        </div>
+        <div id="import-col-notice" style="display:none;margin-top:10px;padding:10px 14px;background:var(--sf-warning-bg);border:1px solid rgba(160,100,0,0.2);border-radius:var(--sf-radius);font-size:12px;color:var(--sf-warning);line-height:1.5"></div>
+        <div style="margin-top:14px">
+          <div class="import-option"><input type="checkbox" id="import-opt-replace" value="1"><label for="import-opt-replace">Remplacer les projets existants ayant le même numéro de projet</label></div>
+        </div>
+        <div class="import-preview" id="import-preview-wrap">
+          <div class="import-preview-header"><div class="import-preview-title">Aperçu des données</div><div class="import-preview-count" id="preview-showing">Affichage des 5 premiers projets</div></div>
+          <div class="preview-table-wrap"><table><thead><tr id="preview-thead"></tr></thead><tbody id="preview-tbody"></tbody></table></div>
+        </div>
+        <div style="margin-top:12px"><button class="btn btn-neutral btn-sm" onclick="resetImport()">← Changer de fichier</button></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-neutral" onclick="closeModal('import-modal')">Annuler</button>
+      <button class="btn btn-primary" id="import-confirm-btn" onclick="confirmImport()" style="display:none">⬆ Importer les projets</button>
+    </div>
+  </div>
+</div>
+
+<!-- USER MODAL -->
+<div class="modal-overlay" id="user-modal">
+  <div class="modal" style="max-width:540px">
+    <div class="modal-header"><div class="modal-title" id="user-modal-title">Nouvel utilisateur</div><button class="modal-close" onclick="closeModal('user-modal')">✕</button></div>
+    <div style="padding:20px">
+      <div class="form-grid">
+        <div class="form-group"><label>Prénom</label><input type="text" id="u-prenom" placeholder="Prénom"></div>
+        <div class="form-group"><label>Nom</label><input type="text" id="u-nom" placeholder="Nom de famille"></div>
+        <div class="form-group span2"><label>Courriel</label><input type="email" id="u-email" placeholder="prenom.nom@entreprise.ca"></div>
+        <div class="form-group span2"><label>Mot de passe <span id="u-password-hint" style="font-weight:400;color:var(--sf-text-dim)">(laisser vide pour conserver l'actuel)</span></label><input type="password" id="u-password" placeholder="••••••••"></div>
+        <div class="form-group"><label>Profil d'accès</label><select id="u-profile"><option value="">-- Sélectionner --</option></select></div>
+        <div class="form-group"><label>Statut</label><select id="u-statut"><option value="Actif">Actif</option><option value="Inactif">Inactif</option></select></div>
+        <div class="form-group"><label>Titre / Fonction</label><input type="text" id="u-titre" placeholder="ex: Chargé de projet"></div>
+        <div class="form-group"><label>Région</label><select id="u-region"><option value="">-- Sélectionner --</option><option>Abitibi/Témiscamingue</option><option>Estrie/Bois-Francs</option><option>Laurentides</option><option>Mauricie</option><option>Montérégie</option><option>Montréal-Est</option><option>Montréal-Ouest</option><option>Québec</option><option>Saguenay/Lac St-Jean</option></select></div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-neutral" onclick="closeModal('user-modal')">Annuler</button><button class="btn btn-primary" onclick="saveUser()">Enregistrer</button></div>
+  </div>
+</div>
+
+<!-- PROFILE MODAL -->
+<div class="modal-overlay" id="profile-modal">
+  <div class="modal" style="max-width:600px">
+    <div class="modal-header"><div class="modal-title" id="profile-modal-title">Nouveau profil d'accès</div><button class="modal-close" onclick="closeModal('profile-modal')">✕</button></div>
+    <div style="padding:20px">
+      <div class="form-grid">
+        <div class="form-group"><label>Nom du profil</label><input type="text" id="p-nom" placeholder="ex: Chargé de projet"></div>
+        <div class="form-group"><label>Icône</label><select id="p-icon"><option>👑</option><option>🔑</option><option>📋</option><option>👁️</option><option>🛠️</option><option>📊</option></select></div>
+        <div class="form-group span2"><label>Description</label><input type="text" id="p-desc" placeholder="Décrivez les responsabilités de ce profil"></div>
+      </div>
+      <div style="margin-top:16px"><label>Permissions</label><div class="perms-grid" id="perms-grid"></div></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-neutral" onclick="closeModal('profile-modal')">Annuler</button><button class="btn btn-primary" onclick="saveProfile()">Enregistrer</button></div>
+  </div>
+</div>
+
+<!-- CONFIRM -->
+<div class="modal-overlay" id="confirm-modal">
+  <div class="modal confirm-modal">
+    <div class="modal-header"><div class="modal-title" id="confirm-title">Confirmer</div><button class="modal-close" onclick="closeModal('confirm-modal')">✕</button></div>
+    <div class="confirm-body"><div class="confirm-icon">⚠️</div><div class="confirm-msg" id="confirm-msg"></div></div>
+    <div class="confirm-actions"><button class="btn btn-neutral" onclick="closeModal('confirm-modal')">Annuler</button><button class="btn btn-destructive" id="confirm-btn">Supprimer</button></div>
+  </div>
+</div>
+<div class="toast" id="notif"></div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ══ FIELD MAP (CSV header → internal key) ══
+const FIELD_MAP = {
+  'numéro de projet':'numero','titre du projet':'titre','année du projet':'annee',
+  'initié par':'initie','type de projet':'type','modèle de référence':'modele',
+  'priorité 1@3':'priorite','analyse de risque':'analyse-risque',
+  "nature d'invest":'nature','région':'region','ville':'ville',
+  'description des travaux':'description','ing régional':'ing',
+  'chargé de projet':'charge','tech':'tech','statut du projet':'statut',
+  'progrès':'progres',
+  "numéro de di d'estimation":'di-estim-num','estimation du projet':'di-estim-mnt',
+  'numéro de di de réalisation':'di-real-num','montant de di de réalisation':'di-real-mnt',
+  'numéro de di ajustement #1':'adj1-num','montant de di ajustement #1':'adj1-mnt',
+  'numéro de di ajustement #2':'adj2-num','montant de di ajustement #2':'adj2-mnt',
+  'numéro ordres':'num-ordres',
+  'montant 0/12 2026':'mnt-0-12','dt remarque 0/12':'dt-0-12','remarque 0/12':'rem-0-12',
+  'montant 3/9 2026':'mnt-3-9','dt remarque 3/9':'dt-3-9','remarque 3/9':'rem-3-9',
+  'montant 6/6 2026':'mnt-6-6','dt remarque 6/6':'dt-6-6','remarque 6/6':'rem-6-6',
+  'montant 8/4 2026':'mnt-8-4','dt remarque 8/4':'dt-8-4','remarque 8/4':'rem-8-4',
+  'montant 9/3 2026':'mnt-9-3','dt remarque 9/3':'dt-9-3','remarque 9/3':'rem-9-3',
+  'montant cause 2026':'mnt-cause','dt remarque cause':'dt-cause','remarque cause':'rem-cause',
+  'montant prev coût final 2026':'mnt-prev','dt remarque prev coût final':'dt-prev','remarque prev coût final':'rem-prev',
+  'montant réel 2026':'mnt-reel','dt remarque réel':'dt-reel','remarque réel':'rem-reel',
+  'longueur de cp estimé':'longueur-cp',
+  'statut de vente':'statut-vente','taux de pénétration':'taux-penetration',
+  "date de demande d'estimé":'date-demande-estime',
+  "ordre de prio. de l'estimé":'ordre-prio-estime',
+  'date gaz requis - ventes':'date-gaz-requis-vente',
+  'début prévu des infra.':'debut-infra','première livraison connue':'premiere-livraison',
+  'remarques vente':'remarques-vente-field',
+  'sensibilité médiatique':'sensibilite-med','dans info rtu':'dans-info-rtu',
+  'branchement seulement':'branchement-seul',
+  'date di estimation':'date-di-estim','date di réalisation':'date-di-real',
+  'catégorie g a':'categorie-ga','type travaux g a':'type-travaux-ga',
+  'type de modèle':'type-modele',
+  'date de début type de modèle':'date-debut-modele','date de fin type de modèle':'date-fin-modele',
+  'arpentage':'arpentage','date arpentage':'date-arpentage',
+  'plan approbation':'plan-approbation','date plan approbation':'date-plan-approbation',
+  'plan construction':'plan-construction','date plan construction':'date-plan-construction',
+  'permis':'permis','date permis':'date-permis',
+  'estimation':'estimation-act','date estimation':'date-estimation',
+  'prêt pour autorisation':'pret-autorisation','date prêt pour autorisation':'date-pret-autorisation',
+  'date gaz requis vente':'date-gaz-requis-vente2',
+  "numéro d'avis":'num-avis','nom représentant':'nom-representant',
+  'arrière-lot':'arriere-lot','capuchon en té de plastique':'capuchon-te',
+  'bi avec joint mécanique':'bi-joint',
+  'conversion réseau (pression d\'opération)':'conversion-reseau',
+  'décarbonation':'decarbonation','électricité et/ou instrumentation':'electricite',
+  'gare de raclage':'gare-raclage','gnr/gsr (gaz de source renouvelable)':'gnr-gsr',
+  'hydrogène':'hydrogene','projet corporatif (demande de la direction)':'projet-corp',
+  'projet déposé à la régie de l\'énergie du québec':'projet-regie',
+  'projet gestion des immeubles/sst/sûreté':'projet-imm',
+  'remplacement chaudière (procédé)':'rempl-chaudiere',
+  'remplacement système odorisation':'rempl-odorisation',
+};
+
+// Checkbox fields
+const CHECKBOX_FIELDS = new Set(['sensibilite-med','dans-info-rtu','branchement-seul',
+  'arpentage','plan-approbation','plan-construction','permis','estimation-act','pret-autorisation',
+  'arriere-lot','capuchon-te','bi-joint','conversion-reseau','decarbonation','electricite',
+  'gare-raclage','gnr-gsr','hydrogene','projet-corp','projet-regie','projet-imm',
+  'rempl-chaudiere','rempl-odorisation']);
+
+const ALL_FIELDS = Object.values(FIELD_MAP);
+
+// ══ DATA ══
+let projects=[], users=[], profiles=[];  // populated from Supabase on login
+let editingProject=null, editingUser=null, editingProfile=null;
+// comments keyed by "projId-tab"
+let comments = {};
+
+const PERMISSIONS=['Voir projets','Créer projets','Modifier projets','Supprimer projets','Voir utilisateurs','Gérer utilisateurs','Voir investissements','Modifier investissements'];
+const PROFILE_COLORS=['linear-gradient(135deg,#e8a020,#f5c060)','linear-gradient(135deg,#1db8a8,#38c98a)','linear-gradient(135deg,#5080e8,#8050f0)','linear-gradient(135deg,#e85050,#f08060)','linear-gradient(135deg,#8892a8,#aab0c0)'];
+const CONSULTING_PROFILE = 'Lecture seule';
+
+// Profiles loaded from Supabase on login
+
+// Current logged-in user (simulate)
+
+// ══ NAVIGATION ══
+function showView(name){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.topbar-nav-item').forEach(t=>t.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  const nav=document.getElementById('nav-'+name); if(nav) nav.classList.add('active');
+  const tnav=document.getElementById('tnav-'+name); if(tnav) tnav.classList.add('active');
+  if(name==='dashboard') renderDashboard();
+  if(name==='projects'){loadProjects().then(()=>renderProjectTable());}
+  if(name==='users') renderUsers();
+  if(name==='profiles') renderProfiles();
+  if(name==='audit'){loadAuditLog().then(()=>{auditPage=1;renderAuditLog();});}
+}
+
+// ══ TABS ══
+function switchMainTab(id){
+  document.querySelectorAll('[data-main-tab]').forEach(t=>t.classList.toggle('active',t.dataset.mainTab===id));
+  document.querySelectorAll('.main-tab-panel').forEach(p=>p.classList.toggle('active',p.id==='main-tab-'+id));
+}
+
+// ══ COMMENTS ══
+const AVATAR_COLORS_COMMENT=['#0176D3','#2E844A','#7B5EA7','#BA0517','#0A5F55','#A06400'];
+function commentKey(projId,tab){return projId+'-'+tab;}
+function canComment(){
+  // Lecture seule profile cannot comment
+  return currentUser.profile !== CONSULTING_PROFILE;
+}
+
+function renderComments(tab){
+  if(!editingProject) return;
+  const key=commentKey(editingProject.id,tab);
+  const list=comments[key]||[];
+  const listEl=document.getElementById('comments-'+tab);
+  const addEl=document.getElementById('comment-add-'+tab);
+  if(!listEl) return;
+  // Show/hide add box
+  if(addEl) addEl.style.display=canComment()?'flex':'none';
+  if(!list.length){listEl.innerHTML=`<div class="comment-empty">Aucune remarque pour l'instant.</div>`;return;}
+  // Most recent first
+  listEl.innerHTML=[...list].reverse().map((c,i)=>{
+    const color=AVATAR_COLORS_COMMENT[i%AVATAR_COLORS_COMMENT.length];
+    const initials=c.auteur.split(' ').map(w=>w[0]||'').join('').slice(0,2).toUpperCase();
+    return `<div class="comment-item">
+      <div class="comment-meta">
+        <div class="comment-avatar" style="background:${color}">${initials}</div>
+        <div class="comment-author">${c.auteur}</div>
+        <div class="comment-date">${c.date}</div>
+      </div>
+      <div class="comment-text">${c.texte.replace(/\n/g,'<br>')}</div>
+    </div>`;
+  }).join('');
+}
+
+function addComment(tab){
+  if(!editingProject){notify('⚠️ Enregistrez le projet d\'abord');return;}
+  if(!canComment()){notify('⚠️ Votre profil ne permet pas d\'ajouter des remarques');return;}
+  const ta=document.getElementById('comment-text-'+tab);
+  const texte=(ta.value||'').trim();
+  if(!texte){notify('⚠️ La remarque ne peut pas être vide');return;}
+  const key=commentKey(editingProject.id,tab);
+  if(!comments[key]) comments[key]=[];
+  const now=new Date();
+  const date=now.toLocaleDateString('fr-CA',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  comments[key].push({auteur:currentUser.nom,date,texte});
+  logAudit('comment','projet',editingProject.id,editingProject.titre||editingProject.numero||'Projet',`Remarque ajoutée (onglet ${tab}) : ${texte.slice(0,80)}${texte.length>80?'…':''}`);
+  ta.value='';
+  renderComments(tab);
+}
+
+// ══ PROJECT MODAL ══
+async function openProjectModal(proj=null){
+  editingProject=proj;
+  document.getElementById('project-modal-title').textContent=proj?'Modifier le projet':'Nouveau projet';
+  ALL_FIELDS.forEach(f=>{
+    const el=document.getElementById('f-'+f);
+    if(!el) return;
+    if(CHECKBOX_FIELDS.has(f)) el.checked=proj?(proj[f]==='1'||proj[f]===true||proj[f]==='true'||proj[f]===1):false;
+    else el.value=proj?(proj[f]||''):'';
+  });
+  switchMainTab('general');
+  if(proj?.id){
+    await loadComments(proj.id);
+  }
+  ['planification','ingenierie','vente'].forEach(tab=>renderComments(tab));
+  document.getElementById('project-modal').classList.add('open');
+}
+
+async function saveProject(){
+  const titre=document.getElementById('f-titre').value.trim();
+  if(!titre){notify('⚠️ Le titre du projet est requis');return;}
+  const proj={};
+  ALL_FIELDS.forEach(f=>{
+    const el=document.getElementById('f-'+f);
+    if(!el) return;
+    proj[f]=CHECKBOX_FIELDS.has(f)?el.checked:el.value;
+  });
+  showLoading(editingProject?'Mise à jour…':'Création…');
+  if(editingProject){
+    const sqlRow = projToSQL(proj);
+    const { data, error } = await sb.from('projects').update(sqlRow).eq('id', editingProject.id).select().single();
+    hideLoading();
+    if(error){notify('❌ Erreur: '+error.message);return;}
+    const updated = fromSQL(data);
+    const oldProj = projects.find(p=>p.id===editingProject.id);
+    const diff = buildDiff(oldProj, updated);
+    projects[projects.findIndex(p=>p.id===editingProject.id)]=updated;
+    editingProject=updated;
+    logAudit('update','projet',updated.id,updated.titre||updated.numero||'Projet','',diff);
+    notify('✅ Projet mis à jour');
+  } else {
+    const sqlRow = {...projToSQL(proj), created_by: currentUser?.id};
+    const { data, error } = await sb.from('projects').insert(sqlRow).select().single();
+    hideLoading();
+    if(error){notify('❌ Erreur: '+error.message);return;}
+    const created = fromSQL(data);
+    projects.unshift(created);
+    editingProject=created;
+    logAudit('create','projet',created.id,created.titre||created.numero||'Nouveau projet');
+    notify('✅ Projet créé');
+  }
+  closeModal('project-modal');renderProjectTable();renderDashboard();
+}
+
+// ══ TABLE ══
+let sortField=null,sortDir=1;
+function sortTable(f){sortField===f?sortDir*=-1:(sortField=f,sortDir=1);renderProjectTable();}
+function statutBadge(s){const m={'Annulé':'badge-red','Complété':'badge-green','En exécution':'badge-teal','En préparation':'badge-yellow','Enveloppe':'badge-gray','Étude Ing':'badge-orange'};return s?`<span class="badge ${m[s]||'badge-gray'}">${s}</span>`:'—';}
+function prioriteBadge(p){if(!p) return '<span style="color:#AEAEAC">—</span>';const c=p.startsWith('1')?'badge-red':p.startsWith('2')?'badge-yellow':'badge-blue';return `<span class="badge ${c}">${p}</span>`;}
+
+// ══ ADVANCED FILTERS ══
+let activeFilters = []; // [{field, label, op, value}]
+
+const OP_LABELS = {
+  contains:'contient', equals:'égal à', notequals:'différent de',
+  starts:'commence par', empty:'est vide', notempty:"n'est pas vide",
+  checked:'coché', unchecked:'non coché'
+};
+
+// Build the field selector options once
+function initFilterFieldSelect(){
+  const sel = document.getElementById('af-field');
+  if(!sel || sel.options.length > 1) return;
+  Object.entries(FIELD_MAP).forEach(([label, key])=>{
+    const opt = document.createElement('option');
+    opt.value = key;
+    opt.textContent = label.charAt(0).toUpperCase() + label.slice(1);
+    sel.appendChild(opt);
+  });
+}
+
+function updateFilterOperators(){
+  const key = document.getElementById('af-field').value;
+  const opSel = document.getElementById('af-op');
+  const valWrap = document.getElementById('af-value-wrap');
+  const isCheckbox = CHECKBOX_FIELDS.has(key);
+  // Show only relevant operators
+  opSel.innerHTML = isCheckbox
+    ? '<option value="checked">Coché</option><option value="unchecked">Non coché</option>'
+    : `<option value="contains">Contient</option>
+       <option value="equals">Égal à</option>
+       <option value="notequals">Différent de</option>
+       <option value="starts">Commence par</option>
+       <option value="empty">Est vide</option>
+       <option value="notempty">N'est pas vide</option>`;
+  valWrap.style.display = isCheckbox ? 'none' : '';
+}
+
+function addAdvancedFilter(){
+  const fieldSel = document.getElementById('af-field');
+  const key = fieldSel.value;
+  if(!key){ notify('⚠️ Sélectionnez un champ'); return; }
+  const label = fieldSel.options[fieldSel.selectedIndex].text;
+  const op = document.getElementById('af-op').value;
+  const value = (document.getElementById('af-value').value||'').trim();
+  const noValOps = ['empty','notempty','checked','unchecked'];
+  if(!noValOps.includes(op) && !value){ notify('⚠️ Entrez une valeur'); return; }
+  // Avoid exact duplicate
+  const dup = activeFilters.find(f=>f.field===key&&f.op===op&&f.value===value);
+  if(dup){ notify('⚠️ Ce filtre est déjà actif'); return; }
+  activeFilters.push({field:key, label, op, value});
+  document.getElementById('af-value').value = '';
+  renderActiveFilters();
+  renderProjectTable();
+}
+
+function removeFilter(idx){
+  activeFilters.splice(idx,1);
+  renderActiveFilters();
+  renderProjectTable();
+}
+
+function clearAllFilters(){
+  activeFilters = [];
+  document.getElementById('project-search').value = '';
+  renderActiveFilters();
+  renderProjectTable();
+}
+
+function toggleFilterPanel(){
+  const panel = document.getElementById('filter-panel');
+  const icon  = document.getElementById('filter-toggle-icon');
+  const open  = panel.style.display === 'none' || panel.style.display === '';
+  panel.style.display = open ? 'block' : 'none';
+  icon.textContent = open ? '▴' : '▾';
+  if(open) initFilterFieldSelect();
+}
+
+function renderActiveFilters(){
+  const list  = document.getElementById('active-filters-list');
+  const chips = document.getElementById('filter-chips');
+  const badge = document.getElementById('filter-active-badge');
+  const clearBtn = document.getElementById('clear-filters-btn');
+  const total = activeFilters.length;
+
+  // Chips bar (always visible when filters active)
+  if(total > 0){
+    chips.style.display = 'flex';
+    chips.innerHTML = activeFilters.map((f,i)=>{
+      const valPart = ['empty','notempty','checked','unchecked'].includes(f.op) ? '' : ` "${f.value}"`;
+      return `<span class="filter-chip">${f.label} <em style="font-weight:400;opacity:.7">${OP_LABELS[f.op]}${valPart}</em><span class="filter-chip-x" onclick="removeFilter(${i})">✕</span></span>`;
+    }).join('');
+    badge.style.display = '';
+    badge.textContent = total;
+    clearBtn.style.display = '';
+  } else {
+    chips.style.display = 'none';
+    badge.style.display = 'none';
+    clearBtn.style.display = 'none';
+  }
+
+  // List inside the panel
+  if(list){
+    list.innerHTML = total > 0
+      ? activeFilters.map((f,i)=>{
+          const valPart = ['empty','notempty','checked','unchecked'].includes(f.op) ? '' : ` <em style="color:var(--sf-blue);">"${f.value}"</em>`;
+          return `<div class="af-filter-row">
+            <div class="af-filter-label"><strong>${f.label}</strong><em>${OP_LABELS[f.op]}</em>${valPart}</div>
+            <button class="btn btn-destructive btn-icon btn-sm" onclick="removeFilter(${i})" title="Supprimer ce filtre">✕</button>
+          </div>`;
+        }).join('')
+      : '<div style="font-size:12px;color:var(--sf-text-dim);padding:4px 0">Aucun filtre actif.</div>';
+  }
+}
+
+function applyFilter(f, p){
+  const raw = p[f.field];
+  const val = String(raw === undefined || raw === null ? '' : raw);
+  const v   = f.value.toLowerCase();
+  switch(f.op){
+    case 'contains':   return val.toLowerCase().includes(v);
+    case 'equals':     return val.toLowerCase() === v;
+    case 'notequals':  return val.toLowerCase() !== v;
+    case 'starts':     return val.toLowerCase().startsWith(v);
+    case 'empty':      return val === '' || val === '0' || val === 'false';
+    case 'notempty':   return val !== '' && val !== '0' && val !== 'false';
+    case 'checked':    return val === '1' || val === 'true' || raw === true;
+    case 'unchecked':  return val === '' || val === '0' || val === 'false' || raw === false;
+    default: return true;
+  }
+}
+
+function renderProjectTable(){
+  const q = (document.getElementById('project-search')||{}).value?.toLowerCase()||'';
+  let data = projects.filter(p=>{
+    // Text search across all string fields
+    if(q){
+      const allVals = ALL_FIELDS.map(k=>String(p[k]||'')).join(' ').toLowerCase();
+      if(!allVals.includes(q)) return false;
+    }
+    // Advanced filters (AND logic)
+    return activeFilters.every(f => applyFilter(f, p));
+  });
+  if(sortField) data.sort((a,b)=>(a[sortField]||'').toString().localeCompare((b[sortField]||'').toString())*sortDir);
+  const tbody=document.getElementById('project-list'); if(!tbody) return;
+  tbody.innerHTML=data.length?data.map(p=>`
+    <tr onclick="openProjectModal(${JSON.stringify(p).replace(/"/g,'&quot;')})">
+      <td class="col-primary">${p.numero||'—'}</td>
+      <td class="col-strong" style="max-width:220px">${p.titre}</td>
+      <td>${p.annee||'—'}</td><td>${p.type||'—'}</td><td>${p.region||'—'}</td><td>${p.charge||'—'}</td>
+      <td>${statutBadge(p.statut)}</td>
+      <td><span style="font-size:12px;color:var(--sf-text-muted)">${p.progres||'—'}</span></td>
+      <td>${prioriteBadge(p.priorite)}</td>
+      <td onclick="event.stopPropagation()"><button class="btn btn-destructive btn-icon btn-sm" onclick="deleteProject(${p.id})" title="Supprimer">🗑</button></td>
+    </tr>`).join(''):`<tr><td colspan="10"><div class="empty-state"><div class="es-icon">📁</div><p>Aucun résultat pour ces filtres. <span class="es-link" onclick="clearAllFilters()">Effacer les filtres</span></p></div></td></tr>`;
+  const c=document.getElementById('project-count');
+  if(c){
+    const total = projects.length;
+    const shown = data.length;
+    c.textContent = shown === total ? `${total} projet${total!==1?'s':''}` : `${shown} sur ${total} projet${total!==1?'s':''}`;
+  }
+}
+
+function deleteProject(id){showConfirm('Supprimer le projet?','Cette action est irréversible.',async()=>{
+  const p=projects.find(x=>x.id===id);
+  showLoading('Suppression…');
+  const {error}=await sb.from('projects').delete().eq('id',id);
+  hideLoading();
+  if(error){notify('❌ Erreur: '+error.message);return;}
+  logAudit('delete','projet',id,p?(p.titre||p.numero||'Projet'):'Projet');
+  projects=projects.filter(p=>p.id!==id);
+  renderProjectTable();renderDashboard();notify('🗑️ Projet supprimé');
+});}
+
+// ══ DASHBOARD ══
+function renderDashboard(){
+  document.getElementById('stat-total').textContent=projects.length;
+  document.getElementById('stat-exec').textContent=projects.filter(p=>p.statut==='En exécution').length;
+  document.getElementById('stat-prep').textContent=projects.filter(p=>p.statut==='En préparation').length;
+  document.getElementById('stat-done').textContent=projects.filter(p=>p.statut==='Complété').length;
+  const tbody=document.getElementById('dash-project-list');
+  const recent=projects.slice(-8).reverse();
+  tbody.innerHTML=recent.length?recent.map(p=>`<tr onclick="openProjectModal(${JSON.stringify(p).replace(/"/g,'&quot;')})"><td class="col-primary">${p.numero||'—'}</td><td class="col-strong">${p.titre}</td><td>${p.region||'—'}</td><td>${p.charge||'—'}</td><td>${statutBadge(p.statut)}</td><td>${prioriteBadge(p.priorite)}</td></tr>`).join(''):`<tr><td colspan="6"><div class="empty-state"><div class="es-icon">📁</div><p>Aucun projet — <span class="es-link" onclick="openProjectModal()">Créer le premier</span></p></div></td></tr>`;
+  document.getElementById('dash-count').textContent=`${projects.length} projet${projects.length!==1?'s':''} au total`;
+}
+
+// ══ CSV IMPORT ══
+let importedData=[];
+function openImportModal(){resetImport();document.getElementById('import-modal').classList.add('open');}
+function resetImport(){importedData=[];document.getElementById('import-step-1').style.display='';document.getElementById('import-step-2').style.display='none';document.getElementById('import-confirm-btn').style.display='none';document.getElementById('csv-file-input').value='';document.getElementById('import-col-notice').style.display='none';document.getElementById('drop-zone').classList.remove('drag-over');}
+function handleDragOver(e){e.preventDefault();document.getElementById('drop-zone').classList.add('drag-over');}
+function handleDragLeave(e){document.getElementById('drop-zone').classList.remove('drag-over');}
+function handleDrop(e){e.preventDefault();document.getElementById('drop-zone').classList.remove('drag-over');const f=e.dataTransfer.files[0];if(f) processCSVFile(f);}
+function handleFileSelect(e){const f=e.target.files[0];if(f) processCSVFile(f);}
+function detectDelimiter(text){const first=text.split('\n')[0];const s=(first.match(/;/g)||[]).length,c=(first.match(/,/g)||[]).length;return s>=c?';':',' ;}
+function parseCSVLine(line,delim){const res=[];let inQ=false,cur='';for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"'){inQ=!inQ;}else if(ch===delim&&!inQ){res.push(cur.trim());cur='';}else{cur+=ch;}}res.push(cur.trim());return res;}
+function normalizeKey(str){return str.toLowerCase().replace(/\uFEFF/g,'').replace(/['']/g,"'").replace(/\s+/g,' ').trim();}
+
+function processCSVFile(file){
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const text=e.target.result;
+      const delim=detectDelimiter(text);
+      const lines=text.split(/\r?\n/).filter(l=>l.trim()!=='');
+      if(lines.length<2){showImportError('Le fichier est vide ou ne contient pas assez de lignes.');return;}
+      const rawHeaders=parseCSVLine(lines[0],delim);
+      const colMap=rawHeaders.map(h=>FIELD_MAP[normalizeKey(h)]||null);
+      const mappedCount=colMap.filter(Boolean).length;
+      const skippedCols=rawHeaders.length-mappedCount;
+      const dataRows=[]; let skipped=0;
+      for(let i=1;i<lines.length;i++){
+        const cells=parseCSVLine(lines[i],delim);
+        if(cells.every(c=>!c)){skipped++;continue;}
+        const obj={};
+        colMap.forEach((key,idx)=>{if(key) obj[key]=(cells[idx]||'').trim();});
+        if(!obj.titre&&!obj.numero){skipped++;continue;}
+        obj.id=Date.now()+i;
+        dataRows.push(obj);
+      }
+      if(dataRows.length===0){showImportError(`Aucun projet valide trouvé. ${skipped} ligne(s) ignorée(s).`);return;}
+      importedData=dataRows;
+      document.getElementById('import-step-1').style.display='none';
+      document.getElementById('import-step-2').style.display='';
+      document.getElementById('import-error-box').style.display='none';
+      document.getElementById('import-filename').textContent=file.name;
+      document.getElementById('import-sep').textContent=delim===';'?'Point-virgule (;)':'Virgule (,)';
+      document.getElementById('import-cols').textContent=mappedCount+' / '+rawHeaders.length;
+      document.getElementById('import-rows').textContent=dataRows.length;
+      document.getElementById('import-skipped').textContent=skipped;
+      const colNotice=document.getElementById('import-col-notice');
+      if(skippedCols>0){const skN=rawHeaders.filter((_,i)=>!colMap[i]).map(h=>`"${h}"`).join(', ');colNotice.style.display='';colNotice.textContent=`ℹ️ ${skippedCols} colonne${skippedCols>1?'s':''} ignorée${skippedCols>1?'s':''} : ${skN}`;}
+      else{colNotice.style.display='none';}
+      if(mappedCount===0){showImportError('Aucune colonne reconnue dans ce fichier.');return;}
+      document.getElementById('import-confirm-btn').style.display='';
+      const previewCols=['numero','titre','annee','region','charge','statut','priorite'];
+      const previewLabels=['No.','Titre','Année','Région','Chargé de projet','Statut','Priorité'];
+      document.getElementById('preview-thead').innerHTML=previewLabels.map(l=>`<th>${l}</th>`).join('');
+      document.getElementById('preview-tbody').innerHTML=dataRows.slice(0,5).map(r=>`<tr>${previewCols.map(c=>`<td title="${r[c]||''}">${r[c]||'—'}</td>`).join('')}</tr>`).join('');
+      document.getElementById('preview-showing').textContent=dataRows.length>5?`Affichage de 5 sur ${dataRows.length} projets`:`${dataRows.length} projet${dataRows.length!==1?'s':''}`;
+    }catch(err){showImportError('Erreur: '+err.message);}
+  };
+  reader.readAsText(file,'UTF-8');
+}
+function showImportError(msg){document.getElementById('import-step-1').style.display='none';document.getElementById('import-step-2').style.display='';const b=document.getElementById('import-error-box');b.style.display='';b.textContent='⚠️ '+msg;document.getElementById('import-summary').style.opacity='0.4';document.getElementById('import-confirm-btn').style.display='none';}
+async function confirmImport(){
+  if(!importedData.length) return;
+  const replace=document.getElementById('import-opt-replace').checked;
+  showLoading('Importation en cours…');
+  let added=0,replaced=0;
+  for(const row of importedData){
+    const sqlRow={...projToSQL(row), created_by: currentUser?.id};
+    delete sqlRow.id;
+    if(replace&&row.numero){
+      const existing=projects.find(p=>p.numero&&p.numero.trim()===row.numero.trim());
+      if(existing){
+        await sb.from('projects').update(sqlRow).eq('id',existing.id);
+        replaced++;continue;
+      }
+    }
+    await sb.from('projects').insert(sqlRow);
+    added++;
+  }
+  await loadProjects();
+  hideLoading();
+  closeModal('import-modal');renderDashboard();renderProjectTable();showView('projects');
+  logAudit('import','csv',Date.now(),'Importation CSV',`${added} projet(s) ajouté(s), ${replaced} mis à jour`);
+  notify(replaced>0?`✅ ${added} ajouté${added!==1?'s':''}, ${replaced} mis à jour`:`✅ ${added} projet${added!==1?'s':''} importé${added!==1?'s':''}`);
+}
+
+// ══ CSV EXPORT ══
+function exportCSV(){
+  // Build ordered header labels from FIELD_MAP (label → key)
+  const headers = Object.keys(FIELD_MAP);   // French display labels
+  const keys    = Object.values(FIELD_MAP); // internal field keys
+
+  // Apply same filters as the visible table
+  const q = (document.getElementById('project-search')||{}).value?.toLowerCase()||'';
+  const data = projects.filter(p=>{
+    if(q){
+      const allVals = ALL_FIELDS.map(k=>String(p[k]||'')).join(' ').toLowerCase();
+      if(!allVals.includes(q)) return false;
+    }
+    return activeFilters.every(f => applyFilter(f, p));
+  });
+
+  if(!data.length){notify('⚠️ Aucun projet à exporter');return;}
+
+  // CSV escape: wrap in quotes if value contains delimiter, quote, or newline
+  function esc(val){
+    if(val===undefined||val===null) return '';
+    let s = CHECKBOX_FIELDS.has('__dummy__') ? String(val) : String(val);
+    // For checkboxes export as 1/0
+    if(val===true||val==='true') s='1';
+    else if(val===false||val==='false') s='0';
+    // Quote if needed
+    if(s.includes(';')||s.includes('"')||s.includes('\n')||s.includes('\r')){
+      s = '"' + s.replace(/"/g,'""') + '"';
+    }
+    return s;
+  }
+
+  function escVal(key, val){
+    if(CHECKBOX_FIELDS.has(key)){
+      return (val===true||val==='true'||val==='1')?'1':'0';
+    }
+    if(val===undefined||val===null||val==='') return '';
+    const s = String(val);
+    if(s.includes(';')||s.includes('"')||s.includes('\n')){
+      return '"'+s.replace(/"/g,'""')+'"';
+    }
+    return s;
+  }
+
+  // Build rows
+  const rows = [headers.join(';')];
+  data.forEach(p=>{
+    rows.push(keys.map(k=>escVal(k, p[k])).join(';'));
+  });
+
+  const csv = rows.join('\r\n');
+  const bom = '\uFEFF'; // UTF-8 BOM so Excel opens accents correctly
+  const blob = new Blob([bom+csv], {type:'text/csv;charset=utf-8;'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  const now  = new Date();
+  const stamp= now.getFullYear()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0');
+  a.href     = url;
+  a.download = `VIP_2.0_Projets_${stamp}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  logAudit('export','csv',Date.now(),`Exportation CSV`,`${data.length} projet(s) exporté(s)`);
+  notify(`✅ ${data.length} projet${data.length!==1?'s':''} exporté${data.length!==1?'s':''}`);
+}
+
+// ══ USERS ══
+function openUserModal(usr=null){editingUser=usr;document.getElementById('user-modal-title').textContent=usr?"Modifier l'utilisateur":"Nouvel utilisateur";['prenom','nom','email','titre'].forEach(f=>{const el=document.getElementById('u-'+f);if(el) el.value=usr?(usr[f]||''):''});document.getElementById('u-statut').value=usr?usr.statut:'Actif';document.getElementById('u-region').value=usr?(usr.region||''):'';document.getElementById('u-password').value='';const hint=document.getElementById('u-password-hint');hint.style.display=usr?'':'none';const sel=document.getElementById('u-profile');sel.innerHTML='<option value="">-- Sélectionner --</option>'+profiles.map(p=>`<option ${usr&&usr.profile===p.nom?'selected':''}>${p.nom}</option>`).join('');document.getElementById('user-modal').classList.add('open');}
+async function saveUser(){
+  const prenom=document.getElementById('u-prenom').value.trim();
+  const nom=document.getElementById('u-nom').value.trim();
+  if(!prenom||!nom){notify('⚠️ Prénom et nom sont requis');return;}
+  const email=document.getElementById('u-email').value.trim();
+  const newPwd=document.getElementById('u-password').value;
+  const role_name=document.getElementById('u-profile').value||'Lecture seule';
+  const statut=document.getElementById('u-statut').value;
+  const titre=document.getElementById('u-titre').value;
+  const region=document.getElementById('u-region').value;
+  showLoading(editingUser?'Mise à jour…':'Création…');
+  if(editingUser){
+    // Update profile row
+    const {error}=await sb.from('profiles').update({prenom,nom,role_name,statut,titre,region}).eq('id',editingUser.id);
+    hideLoading();
+    if(error){notify('❌ Erreur: '+error.message);return;}
+    if(newPwd){
+      // Password update requires admin API — not available from browser anon key
+      notify('ℹ️ Le mot de passe ne peut être modifié que via le dashboard Supabase.');
+    }
+    const idx=users.findIndex(u=>u.id===editingUser.id);
+    if(idx>=0) users[idx]={...users[idx],prenom,nom,role_name,statut,titre,region,profile:role_name};
+    logAudit('update','utilisateur',editingUser.id,prenom+' '+nom);
+    notify('✅ Utilisateur mis à jour');
+  } else {
+    if(!email){notify('⚠️ Le courriel est requis');hideLoading();return;}
+    if(!newPwd){notify('⚠️ Le mot de passe est requis pour un nouvel utilisateur');hideLoading();return;}
+    // Create auth user via Supabase Admin is not available from browser.
+    // Use signUp instead — this will also trigger the profile creation trigger.
+    const {data,error}=await sb.auth.signUp({email,password:newPwd,options:{data:{prenom,nom}}});
+    if(error){hideLoading();notify('❌ Erreur: '+error.message);return;}
+    // Update the profile row created by the trigger
+    if(data.user){
+      await sb.from('profiles').update({prenom,nom,role_name,statut,titre,region}).eq('id',data.user.id);
+      users.push({id:data.user.id,prenom,nom,email,profile:role_name,statut,titre,region});
+    }
+    hideLoading();
+    logAudit('create','utilisateur',data.user?.id||'',prenom+' '+nom);
+    notify('✅ Utilisateur créé — ils recevront un courriel de confirmation');
+  }
+  closeModal('user-modal');renderUsers();
+}
+function deleteUser(id){showConfirm("Supprimer l'utilisateur?","Cette action est irréversible. Le compte restera dans Supabase Auth.",async()=>{
+  const u=users.find(x=>x.id===id);
+  showLoading('Suppression…');
+  // We can only deactivate (set Inactif) from the browser — actual auth deletion needs admin key
+  const {error}=await sb.from('profiles').update({statut:'Inactif'}).eq('id',id);
+  hideLoading();
+  if(error){notify('❌ Erreur: '+error.message);return;}
+  logAudit('delete','utilisateur',id,u?u.prenom+' '+u.nom:'Utilisateur');
+  if(u) u.statut='Inactif';
+  renderUsers();notify('🗑️ Utilisateur désactivé');
+});}
+function initials(u){return((u.prenom[0]||'')+(u.nom[0]||'')).toUpperCase();}
+const AVC=['linear-gradient(135deg,#0176D3,#32A0E6)','linear-gradient(135deg,#2E844A,#4BAE6A)','linear-gradient(135deg,#7B5EA7,#9B7EC7)','linear-gradient(135deg,#BA0517,#E43030)','linear-gradient(135deg,#0A5F55,#1DB8A8)'];
+function renderUsers(){const c=document.getElementById('user-cards');c.innerHTML=users.length?users.map((u,i)=>{const color=AVC[i%AVC.length],sc=u.statut==='Actif'?'badge-green':'badge-gray';return `<div class="user-card" onclick="openUserModal(${JSON.stringify(u).replace(/"/g,'&quot;')})"><div class="user-card-banner"></div><div class="user-card-body-wrap"><div class="user-card-header"><div class="user-avatar-lg" style="background:${color}">${initials(u)}</div><div><div class="user-name">${u.prenom} ${u.nom}</div><div class="user-role">${u.titre||'Sans fonction'}</div></div></div><div class="user-meta">${u.email?`<div class="user-meta-row"><span style="width:14px;text-align:center">✉</span>${u.email}</div>`:''}${u.region?`<div class="user-meta-row"><span style="width:14px;text-align:center">📍</span>${u.region}</div>`:''}${u.profile?`<div class="user-meta-row"><span style="width:14px;text-align:center">🔑</span>${u.profile}</div>`:''}</div></div><div class="user-card-footer"><span class="badge ${sc}">${u.statut}</span><button class="btn btn-destructive btn-icon btn-sm" onclick="event.stopPropagation();deleteUser(${u.id})" title="Supprimer">🗑</button></div></div>`;}).join(''):`<div class="empty-state" style="grid-column:1/-1"><div class="es-icon">👥</div><p>Aucun utilisateur</p></div>`;}
+
+// ══ PROFILES ══
+function openProfileModal(prof=null){editingProfile=prof;document.getElementById('profile-modal-title').textContent=prof?"Modifier le profil":"Nouveau profil d'accès";document.getElementById('p-nom').value=prof?prof.nom:'';document.getElementById('p-icon').value=prof?prof.icon:'🔑';document.getElementById('p-desc').value=prof?prof.desc:'';document.getElementById('perms-grid').innerHTML=PERMISSIONS.map(perm=>{const on=prof&&prof.perms.includes(perm);return `<div class="perm-row"><span>${perm}</span><div class="toggle ${on?'on':''}" onclick="this.classList.toggle('on')" data-perm="${perm}"></div></div>`;}).join('');document.getElementById('profile-modal').classList.add('open');}
+function saveProfile(){const nom=document.getElementById('p-nom').value.trim();if(!nom){notify('⚠️ Le nom du profil est requis');return;}const perms=[...document.querySelectorAll('#perms-grid .toggle.on')].map(t=>t.dataset.perm);const prof={id:editingProfile?editingProfile.id:Date.now(),nom,icon:document.getElementById('p-icon').value,desc:document.getElementById('p-desc').value,perms,color:editingProfile?editingProfile.color:PROFILE_COLORS[profiles.length%PROFILE_COLORS.length]};(async ()=>{
+    const permsJson = perms;
+    showLoading(editingProfile?'Mise à jour…':'Création…');
+    if(editingProfile){
+      const {error}=await sb.from('access_profiles').update({nom:prof.nom,icon:prof.icon,description:prof.desc,permissions:permsJson,color:prof.color}).eq('id',editingProfile.id);
+      hideLoading();
+      if(error){notify('❌ Erreur: '+error.message);return;}
+      profiles[profiles.findIndex(p=>p.id===editingProfile.id)]=prof;
+      logAudit('update','profil',prof.id,prof.nom);notify('✅ Profil mis à jour');
+    } else {
+      const {data,error}=await sb.from('access_profiles').insert({nom:prof.nom,icon:prof.icon,description:prof.desc,permissions:permsJson,color:prof.color}).select().single();
+      hideLoading();
+      if(error){notify('❌ Erreur: '+error.message);return;}
+      prof.id=data.id;profiles.push(prof);
+      logAudit('create','profil',prof.id,prof.nom);notify('✅ Profil créé');
+    }
+    closeModal('profile-modal');renderProfiles();
+  })();}
+function deleteProfile(id){showConfirm('Supprimer le profil?','Les utilisateurs associés seront affectés.',async()=>{
+  const pr=profiles.find(x=>x.id===id);
+  showLoading('Suppression…');
+  const {error}=await sb.from('access_profiles').delete().eq('id',id);
+  hideLoading();
+  if(error){notify('❌ Erreur: '+error.message);return;}
+  logAudit('delete','profil',id,pr?pr.nom:'Profil');
+  profiles=profiles.filter(p=>p.id!==id);renderProfiles();notify('🗑️ Profil supprimé');
+});}
+function renderProfiles(){const c=document.getElementById('profile-list');c.innerHTML=profiles.map(prof=>{const uc=users.filter(u=>u.profile===prof.nom).length;return `<div class="profile-item" onclick="openProfileModal(${JSON.stringify(prof).replace(/"/g,'&quot;')})"><div class="profile-icon" style="background:${prof.color}">${prof.icon}</div><div style="flex:1;min-width:0"><div class="profile-name">${prof.nom}</div><div class="profile-desc">${prof.desc}</div><div class="profile-perms">${prof.perms.map(p=>`<span class="perm-tag on">${p}</span>`).join('')}${PERMISSIONS.filter(p=>!prof.perms.includes(p)).map(p=>`<span class="perm-tag">${p}</span>`).join('')}</div></div><div style="text-align:right;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:8px"><span class="badge badge-gray">${uc} utilisateur${uc!==1?'s':''}</span><button class="btn btn-destructive btn-icon btn-sm" onclick="event.stopPropagation();deleteProfile(${prof.id})" title="Supprimer">🗑</button></div></div>`;}).join('')||`<div class="empty-state"><div class="es-icon">🔑</div><p>Aucun profil défini</p></div>`;}
+
+
+// ══ AUDIT LOG ══
+let auditLog = [];   // [{id, ts, type, entity, entityId, entityLabel, user, detail, diff}]
+let auditPage = 1;
+const AUDIT_PAGE_SIZE = 30;
+
+const AUDIT_ICONS = {
+  create:'✨', update:'✏️', delete:'🗑️',
+  login:'🔑', logout:'🚪', import:'⬆️', export:'⬇️', comment:'💬'
+};
+const AUDIT_LABELS = {
+  create:'Création', update:'Modification', delete:'Suppression',
+  login:'Connexion', logout:'Déconnexion', import:'Importation', export:'Exportation', comment:'Commentaire'
+};
+
+function auditNow(){
+  const now = new Date();
+  return now.toLocaleDateString('fr-CA',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+
+function logAudit(type, entity, entityId, entityLabel, detail='', diff=null){
+  const who = currentUser ? currentUser.nom : 'Système';
+  auditLog.unshift({
+    id: Date.now() + Math.random(),
+    ts: auditNow(),
+    tsRaw: Date.now(),
+    type,
+    entity,
+    entityId,
+    entityLabel,
+    user: who,
+    detail,
+    diff
+  });
+}
+
+function buildDiff(oldObj, newObj){
+  if(!oldObj || !newObj) return null;
+  const changes = [];
+  // Use FIELD_MAP labels for readable field names
+  const keyToLabel = {};
+  Object.entries(FIELD_MAP).forEach(([lbl,k])=>{ keyToLabel[k] = lbl.charAt(0).toUpperCase()+lbl.slice(1); });
+  ALL_FIELDS.forEach(k=>{
+    const oldV = String(oldObj[k]===undefined||oldObj[k]===null?'':oldObj[k]);
+    const newV = String(newObj[k]===undefined||newObj[k]===null?'':newObj[k]);
+    if(oldV !== newV){
+      changes.push({field: keyToLabel[k]||k, old: oldV, new: newV});
+    }
+  });
+  return changes.length ? changes : null;
+}
+
+function renderAuditLog(){
+  const q    = (document.getElementById('audit-search')||{}).value?.toLowerCase()||'';
+  const fT   = (document.getElementById('audit-filter-type')||{}).value||'';
+  const fU   = (document.getElementById('audit-filter-user')||{}).value||'';
+  const fE   = (document.getElementById('audit-filter-entity')||{}).value||'';
+
+  let data = auditLog.filter(e=>{
+    if(fT && e.type !== fT) return false;
+    if(fU && e.user !== fU) return false;
+    if(fE && e.entity !== fE) return false;
+    if(q){
+      const hay = [e.user,e.entityLabel,e.detail,AUDIT_LABELS[e.type]||''].join(' ').toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  // Populate user filter
+  const userSel = document.getElementById('audit-filter-user');
+  if(userSel){
+    const cur = userSel.value;
+    const uniq = [...new Set(auditLog.map(e=>e.user).filter(Boolean))].sort();
+    userSel.innerHTML = '<option value="">Tous les utilisateurs</option>' +
+      uniq.map(u=>`<option ${u===cur?'selected':''}>${u}</option>`).join('');
+  }
+
+  const countEl = document.getElementById('audit-count');
+  if(countEl) countEl.textContent = `${data.length} entrée${data.length!==1?'s':''}`;
+
+  const visible = data.slice(0, auditPage * AUDIT_PAGE_SIZE);
+  const tl = document.getElementById('audit-timeline');
+  if(!tl) return;
+
+  if(!data.length){
+    tl.innerHTML = `<div class="empty-state"><div class="es-icon">📋</div><p>Aucune entrée dans le journal pour ces critères.</p></div>`;
+    const btn = document.getElementById('audit-load-more');
+    if(btn) btn.style.display='none';
+    return;
+  }
+
+  tl.innerHTML = visible.map((e,i)=>{
+    const isLast = i === visible.length - 1;
+    const diffHtml = e.diff && e.diff.length ? `
+      <details class="audit-detail">
+        <summary>${e.diff.length} champ${e.diff.length!==1?'s':''} modifié${e.diff.length!==1?'s':''}</summary>
+        <div class="audit-diff">
+          ${e.diff.map(d=>`
+            <div class="audit-diff-row">
+              <span class="audit-diff-field">${d.field}</span>
+              <span class="audit-diff-old" title="${d.old}">${d.old||'(vide)'}</span>
+              <span class="audit-diff-arrow">→</span>
+              <span class="audit-diff-new" title="${d.new}">${d.new||'(vide)'}</span>
+            </div>`).join('')}
+        </div>
+      </details>` : (e.detail ? `<div class="audit-detail" style="cursor:default">${e.detail}</div>` : '');
+
+    return `<div class="audit-entry">
+      <div class="audit-dot-wrap">
+        <div class="audit-dot ${e.type}" title="${AUDIT_LABELS[e.type]||e.type}">${AUDIT_ICONS[e.type]||'•'}</div>
+        ${!isLast?'<div class="audit-line"></div>':''}
+      </div>
+      <div class="audit-body">
+        <div class="audit-action">${AUDIT_LABELS[e.type]||e.type} — <span class="audit-target">${e.entityLabel}</span></div>
+        <div class="audit-meta">
+          <span class="audit-user">👤 ${e.user}</span>
+          <span class="audit-time">🕐 ${e.ts}</span>
+          <span class="badge ${
+            e.type==='create'?'badge-green':e.type==='delete'?'badge-red':
+            e.type==='login'?'badge-blue':e.type==='import'?'badge-orange':
+            e.type==='comment'?'badge-teal':'badge-gray'
+          }" style="font-size:10px">${AUDIT_LABELS[e.type]||e.type}</span>
+        </div>
+        ${diffHtml}
+      </div>
+    </div>`;
+  }).join('');
+
+  const btn = document.getElementById('audit-load-more');
+  if(btn) btn.style.display = data.length > visible.length ? '' : 'none';
+}
+
+function exportAuditCSV(){
+  if(!auditLog.length){notify('⚠️ Le journal est vide');return;}
+  const headers = ['Date','Utilisateur','Action','Objet','Identifiant','Description'];
+  const rows = [headers.join(';')];
+  auditLog.forEach(e=>{
+    const diffStr = e.diff ? e.diff.map(d=>`${d.field}: "${d.old}"→"${d.new}"`).join(' | ') : e.detail||'';
+    const esc = v => { const s=String(v||''); return s.includes(';')||s.includes('"')||s.includes('\n') ? '"'+s.replace(/"/g,'""')+'"' : s; };
+    rows.push([e.ts,e.user,AUDIT_LABELS[e.type]||e.type,e.entity,e.entityLabel,diffStr].map(esc).join(';'));
+  });
+  const bom='\uFEFF';
+  const blob=new Blob([bom+rows.join('\r\n')],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  const stamp=new Date().toISOString().slice(0,10).replace(/-/g,'');
+  a.href=url; a.download=`VIP_2.0_Audit_${stamp}.csv`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  notify(`✅ Journal exporté (${auditLog.length} entrées)`);
+}
+
+function clearAuditLog(){
+  showConfirm('Effacer le journal d\'audit?','Cette action supprimera définitivement toutes les entrées.',()=>{
+    auditLog=[];
+    renderAuditLog();
+    notify('🗑️ Journal effacé');
+  });
+}
+
+// ══ HELPERS ══
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o) o.classList.remove('open');}));
+function showConfirm(title,msg,cb){document.getElementById('confirm-title').textContent=title;document.getElementById('confirm-msg').textContent=msg;document.getElementById('confirm-btn').onclick=()=>{closeModal('confirm-modal');cb();};document.getElementById('confirm-modal').classList.add('open');}
+function notify(msg){const el=document.getElementById('notif');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),3500);}
+
+// ══ SUPABASE ══
+const SUPABASE_URL  = 'https://twaqgyfxtvknhtdqoaic.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_PWRhdVGyVdki6RH9PpK5yw_D2A_tiKf';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+// Key mapping: JS hyphen keys → SQL underscore columns (and back)
+const toSQL = k => k.replace(/-/g,'_');
+const fromSQL = obj => {
+  const out = {};
+  Object.entries(obj).forEach(([k,v]) => { out[k.replace(/_/g,'-')] = v; });
+  // also keep underscore version for compat
+  Object.assign(out, obj);
+  return out;
+};
+const projToSQL = proj => {
+  const row = {};
+  ALL_FIELDS.forEach(k => {
+    const col = toSQL(k);
+    let v = proj[k];
+    if(CHECKBOX_FIELDS.has(k)) v = v===true||v==='true'||v==='1'||v===1;
+    else if(v===''||v===undefined||v===null) v = null;
+    row[col] = v;
+  });
+  return row;
+};
+
+// ── Loading helpers ──
+function showLoading(msg='Chargement…'){
+  document.getElementById('loading-text').textContent=msg;
+  document.getElementById('loading-overlay').classList.remove('hidden');
+}
+function hideLoading(){
+  document.getElementById('loading-overlay').classList.add('hidden');
+}
+
+// ── AUTH ──
+let currentUser = null;
+
+async function doLogin(){
+  const email  = document.getElementById('login-email').value.trim().toLowerCase();
+  const pwd    = document.getElementById('login-password').value;
+  const errEl  = document.getElementById('login-error');
+  errEl.classList.remove('show');
+  showLoading('Connexion en cours…');
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pwd });
+  hideLoading();
+  if(error){
+    errEl.textContent = error.message.includes('Invalid') ? 'Courriel ou mot de passe incorrect.' : error.message;
+    errEl.classList.add('show');
+    document.getElementById('login-password').value='';
+    document.getElementById('login-password').focus();
+    return;
+  }
+  await onSignedIn(data.user);
+}
+
+async function onSignedIn(authUser){
+  // Fetch profile row
+  const { data: prof } = await sb.from('profiles').select('*').eq('id', authUser.id).single();
+  if(prof && prof.statut === 'Inactif'){
+    await sb.auth.signOut();
+    const errEl = document.getElementById('login-error');
+    errEl.textContent = 'Ce compte est désactivé.';
+    errEl.classList.add('show');
+    return;
+  }
+  currentUser = {
+    id:      authUser.id,
+    email:   authUser.email,
+    prenom:  prof?.prenom || authUser.email.split('@')[0],
+    nom:     (prof?.prenom||'') + ' ' + (prof?.nom||''),
+    profile: prof?.role_name || 'Lecture seule',
+  };
+  currentUser.nom = currentUser.nom.trim() || authUser.email;
+  logAudit('login','session',authUser.id, currentUser.nom, `Connexion avec le profil : ${currentUser.profile}`);
+  document.getElementById('login-screen').classList.add('hidden');
+  updateTopbarUser();
+  showLoading('Chargement des données…');
+  await Promise.all([loadProjects(), loadProfiles(), loadUsers(), loadAuditLog()]);
+  hideLoading();
+  showView('dashboard');
+}
+
+async function doLogout(){
+  if(currentUser) logAudit('logout','session',currentUser.id, currentUser.nom);
+  await sb.auth.signOut();
+  currentUser = null;
+  projects=[]; users=[]; profiles=[]; auditLog=[];
+  closeUserDropdown();
+  editingProject=null; editingUser=null; editingProfile=null;
+  document.getElementById('login-email').value='';
+  document.getElementById('login-password').value='';
+  document.getElementById('login-error').classList.remove('show');
+  document.getElementById('login-screen').classList.remove('hidden');
+}
+
+function updateTopbarUser(){
+  if(!currentUser) return;
+  const parts = currentUser.nom.trim().split(' ');
+  const initials2 = ((parts[0]||'')[0]||'').toUpperCase() + ((parts[1]||'')[0]||'').toUpperCase();
+  document.getElementById('topbar-user-avatar').textContent = initials2 || (currentUser.prenom[0]||'?').toUpperCase();
+  document.getElementById('topbar-user-name').textContent = currentUser.prenom || currentUser.email;
+  document.getElementById('dd-user-name').textContent = currentUser.nom || currentUser.email;
+  document.getElementById('dd-user-email').textContent = currentUser.email;
+  document.getElementById('dd-user-profile').textContent = currentUser.profile;
+}
+
+function toggleUserDropdown(){ document.getElementById('user-dropdown').classList.toggle('hidden'); }
+function closeUserDropdown(){ document.getElementById('user-dropdown').classList.add('hidden'); }
+document.addEventListener('click', e=>{
+  const wrap = document.getElementById('user-dropdown-wrap');
+  if(wrap && !wrap.contains(e.target)) closeUserDropdown();
+});
+
+function canComment(){ return currentUser && currentUser.profile !== CONSULTING_PROFILE; }
+
+// ── DATA LOADERS ──
+async function loadProjects(){
+  const { data, error } = await sb.from('projects').select('*').order('created_at', {ascending:false});
+  if(error){ console.error('loadProjects:', error); return; }
+  projects = (data||[]).map(fromSQL);
+}
+
+async function loadProfiles(){
+  const { data, error } = await sb.from('access_profiles').select('*').order('nom');
+  if(error){ console.error('loadProfiles:', error); return; }
+  profiles = (data||[]).map(p => ({
+    id: p.id, nom: p.nom, icon: p.icon, desc: p.description,
+    perms: typeof p.permissions === 'string' ? JSON.parse(p.permissions) : (p.permissions||[]),
+    color: p.color
+  }));
+}
+
+async function loadUsers(){
+  const { data, error } = await sb.from('profiles').select('*').order('nom');
+  if(error){ console.error('loadUsers:', error); return; }
+  users = (data||[]).map(u => ({
+    id: u.id, prenom: u.prenom||'', nom: u.nom||'',
+    email: '', titre: u.titre||'', region: u.region||'',
+    profile: u.role_name||'Lecture seule', statut: u.statut||'Actif'
+  }));
+  // Fetch emails from auth — not available directly; use what we have
+}
+
+async function loadAuditLog(){
+  const { data, error } = await sb.from('audit_log').select('*').order('created_at', {ascending:false}).limit(500);
+  if(error){ console.error('loadAuditLog:', error); return; }
+  auditLog = (data||[]).map(e => ({
+    id: e.id, ts: new Date(e.created_at).toLocaleDateString('fr-CA',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'}),
+    tsRaw: new Date(e.created_at).getTime(),
+    type: e.type, entity: e.entity, entityId: e.entity_id,
+    entityLabel: e.entity_label, user: e.user_name, detail: e.detail,
+    diff: e.diff
+  }));
+}
+
+async function loadComments(projectId){
+  const { data, error } = await sb.from('comments').select('*').eq('project_id', projectId).order('created_at', {ascending:true});
+  if(error){ console.error('loadComments:', error); return; }
+  // Store in local comments object
+  ['planification','ingenierie','vente'].forEach(tab => {
+    const key = commentKey(projectId, tab);
+    comments[key] = (data||[]).filter(c=>c.tab===tab).map(c=>({
+      auteur: c.auteur, date: new Date(c.created_at).toLocaleDateString('fr-CA',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}),
+      texte: c.texte
+    }));
+  });
+}
+
+// ── PERSIST AUDIT ──
+const _origLogAudit = logAudit;
+async function persistAudit(type, entity, entityId, entityLabel, detail='', diff=null){
+  _origLogAudit(type, entity, entityId, entityLabel, detail, diff);
+  if(!currentUser) return;
+  await sb.from('audit_log').insert({
+    type, entity,
+    entity_id: String(entityId||''),
+    entity_label: entityLabel,
+    user_name: currentUser.nom,
+    user_id: currentUser.id,
+    detail, diff
+  });
+}
+// Override logAudit globally
+function logAudit(type, entity, entityId, entityLabel, detail='', diff=null){
+  persistAudit(type, entity, entityId, entityLabel, detail, diff);
+}
+
+// ══ INIT ══
+(async () => {
+  showLoading('Initialisation…');
+  const { data: { session } } = await sb.auth.getSession();
+  if(session?.user){
+    await onSignedIn(session.user);
+  } else {
+    hideLoading();
+    // Show login screen
+  }
+})();
+</script>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="login-logo">
+        <div class="login-logo-icon">V</div>
+        <div class="login-logo-text">VIP <span>2.0</span></div>
+      </div>
+      <div class="login-subtitle">Gestion des projets d'investissement</div>
+    </div>
+    <div class="login-body">
+      <div class="login-error" id="login-error">Courriel ou mot de passe incorrect.</div>
+      <div class="login-field">
+        <label>Courriel</label>
+        <input type="email" id="login-email" placeholder="prenom.nom@entreprise.ca" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <div class="login-field">
+        <label>Mot de passe</label>
+        <input type="password" id="login-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <button class="login-btn" onclick="doLogin()">Se connecter</button>
+      <div class="login-demo-hint">
+        <strong>Compte de démonstration :</strong>
+        Courriel&nbsp;: <code><a hre
